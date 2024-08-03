@@ -2,7 +2,8 @@ import thunderConfig from './thunder.config';
 
 export default defineNuxtConfig({
   debug: process.env.NODE_ENV === 'development',
-  extends: ['@thunder/magento', '@thunder/composables', '@thunder/pagebuilder'],
+  extends: ['@thunder/magento', '@thunder/composables'],
+
   modules: [
     '@nuxtjs/i18n',
     '@nuxtjs/apollo',
@@ -11,9 +12,9 @@ export default defineNuxtConfig({
     '@nuxt/image',
     '@nuxtjs/google-fonts',
     '@nuxtjs/robots',
-    'nuxt-simple-sitemap',
     'nuxt-swiper'
   ],
+
   app: {
     head: {
       htmlAttrs: { lang: 'en' },
@@ -23,6 +24,7 @@ export default defineNuxtConfig({
     },
     pageTransition: { name: 'page', mode: 'out-in' }
   },
+
   apollo: {
     clients: {
       default: {
@@ -43,6 +45,7 @@ export default defineNuxtConfig({
       }
     }
   },
+
   i18n: {
     strategy: 'prefix',
     locales: [
@@ -54,15 +57,19 @@ export default defineNuxtConfig({
     langDir: './lang',
     defaultLocale: 'en'
   },
+
   typescript: {
     includeWorkspace: true
   },
+
   build: {
     transpile: ['tslib']
   },
+
   image: {
     domains: ['api.thunderjs.dev', 'vercel.app']
   },
+
   routeRules: {
     '/': { isr: false },
     '/content/**': { isr: false },
@@ -72,6 +79,7 @@ export default defineNuxtConfig({
     '/checkout/**': { ssr: false },
     '/account/**': { ssr: false }
   },
+
   runtimeConfig: {
     nitro: { envPrefix: 'VERCEL_' },
     region: process.env.VERCEL_REGION,
@@ -79,12 +87,16 @@ export default defineNuxtConfig({
       ...thunderConfig
     }
   },
+
   googleFonts: {
     families: {
       'Red Hat Display': [400, 700]
     }
   },
+
   swiper: {
     modules: ['navigation', 'pagination']
-  }
+  },
+
+  compatibilityDate: '2024-08-03'
 });

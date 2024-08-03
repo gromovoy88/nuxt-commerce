@@ -17,8 +17,6 @@ if (routeData?.type === 'Page') {
 
 const { data: page } = await fetchCmsPage(pageId.value ?? '');
 
-const isPageBuilder = computed(() => detectPageBuilder(page?.content));
-
 useHead({
   title: computed(() => `${page?.title}`),
   titleTemplate: '%s - Thunder Commerce',
@@ -36,9 +34,6 @@ useHead({
 
 <template>
   <ContainerOneColumn v-if="page?.content">
-    <PageBuilder v-if="isPageBuilder" :content="page.content" />
-    <div v-else>
-      <div v-html="page.content"></div>
-    </div>
+    <div v-html="page.content"></div>
   </ContainerOneColumn>
 </template>

@@ -44,14 +44,9 @@ This layer provides an abstraction to Magento 2 API by providing composables fun
 
 A set of composables like `useProductList` or `useCustomer` to use business logic and state in any Nuxt 3 project.
 
-**Pagebuilder Layer**
-
-Implementation of all default Magento page builder components.
-
 **Demo Apps**
 
-Two different demo client applications to get started with Thunder based on Nuxt 3.
-
+Demo application to get started with Thunder based on Nuxt 3.
 
 ### Progress
 

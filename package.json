@@ -10,11 +10,7 @@
     "dev": "pnpm --filter thunder dev",
     "build": "pnpm --filter thunder build",
     "codegen": "pnpm --filter thunder codegen",
-    "lint": "pnpm --filter './apps/**' lint",
-    "lintfix": "pnpm --filter './packages/**' lintfix",
-    "dev:client": "pnpm --filter client dev",
-    "build:client": "pnpm --filter client build",
-    "codegen:client": "pnpm --filter client codegen",
+    "lint": "pnpm --filter './{apps,packages}/**' lint",
     "prepare": "husky install"
   },
   "devDependencies": {

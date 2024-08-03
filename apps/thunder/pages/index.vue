@@ -14,7 +14,6 @@ useHead({
   <ContainerOneColumn class="flex flex-col gap-12 lg:gap-20">
     <LazyLandingBannerSlider />
     <LazyLandingBrandsGrid />
-    <LazyLandingCmsContent />
     <LazyLandingBestsellers />
     <LandingSingleBanner />
     <LazyLandingOnSale />

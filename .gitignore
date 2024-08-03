@@ -8,11 +8,7 @@ build
 !/apps/thunder/**
 !/packages/composables
 !/packages/composables/**
-!/packages/pagebuilder
-!/packages/pagebuilder/**
 !/packages/magento
 !/packages/magento/**
 !/packages/types
 !/packages/types/**
-!/apps/client
-!/apps/client/**
