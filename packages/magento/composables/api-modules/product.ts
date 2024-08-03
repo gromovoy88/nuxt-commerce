@@ -29,25 +29,25 @@ export function useProductApi() {
     return {
       data: {
         items:
-          data.value.products?.items?.map((product) => mapProduct(product)) ??
+          data.value?.products?.items?.map((product) => mapProduct(product)) ??
           [],
         filters:
-          data.value.products?.aggregations?.map((aggregation) =>
+          data.value?.products?.aggregations?.map((aggregation) =>
             mapFilter(aggregation)
           ) ?? [],
         pageInfo: {
-          currentPage: data.value.products?.page_info?.current_page ?? 0,
-          totalPages: data.value.products?.page_info?.total_pages ?? 0
+          currentPage: data.value?.products?.page_info?.current_page ?? 0,
+          totalPages: data.value?.products?.page_info?.total_pages ?? 0
         },
-        sort: mapSort(data.value.products?.sort_fields ?? null),
-        totalCount: data.value.products?.total_count ?? 0
+        sort: mapSort(data.value?.products?.sort_fields ?? null),
+        totalCount: data.value?.products?.total_count ?? 0
       },
       error: error.value
     };
   }
 
   async function fetchProductConfigurable(sku: string) {
-    return await useAsyncQuery(ProductListOnConfigurable, {
+    const { data, error } = await useAsyncQuery(ProductListOnConfigurable, {
       pageSize: 1,
       currentPage: 1,
       filters: {
@@ -56,10 +56,15 @@ export function useProductApi() {
         }
       }
     });
+
+    return {
+      data,
+      error
+    };
   }
 
   async function fetchProductBundle(sku: string) {
-    return await useAsyncQuery(ProductListOnBundle, {
+    const { data, error } = await useAsyncQuery(ProductListOnBundle, {
       pageSize: 1,
       currentPage: 1,
       filters: {
@@ -68,10 +73,15 @@ export function useProductApi() {
         }
       }
     });
+
+    return {
+      data,
+      error
+    };
   }
 
   async function fetchProductGrouped(sku: string) {
-    return await useAsyncQuery(ProductListOnGrouped, {
+    const { data, error } = await useAsyncQuery(ProductListOnGrouped, {
       pageSize: 1,
       currentPage: 1,
       filters: {
@@ -80,6 +90,11 @@ export function useProductApi() {
         }
       }
     });
+
+    return {
+      data,
+      error
+    };
   }
 
   async function fetchProductPage(
@@ -90,7 +105,7 @@ export function useProductApi() {
     });
 
     return {
-      data: mapProductPage(data.value),
+      data: data.value ? mapProductPage(data.value) : null,
       error: error.value
     };
   }
@@ -108,7 +123,7 @@ export function useProductApi() {
 
     return {
       data:
-        data.value.products?.items?.[0]?.upsell_products?.map((product) =>
+        data.value?.products?.items?.[0]?.upsell_products?.map((product) =>
           mapProduct(product)
         ) ?? null,
       error: error.value
@@ -128,7 +143,7 @@ export function useProductApi() {
 
     return {
       data:
-        data.value.products?.items?.[0]?.crosssell_products?.map((product) =>
+        data.value?.products?.items?.[0]?.crosssell_products?.map((product) =>
           mapProduct(product)
         ) ?? null,
       error: error.value

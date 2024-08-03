@@ -33,7 +33,7 @@ export function useCartApi() {
     });
 
     return {
-      data: mapCart(data.value.cart),
+      data: data.value ? mapCart(data.value.cart) : null,
       error: error.value
     };
   }

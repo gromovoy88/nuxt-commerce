@@ -20,7 +20,7 @@ function resetSearch() {
 
 <template>
   <div
-    class="mb-4 rounded-lg bg-slate-200 py-6 text-center shadow-sm dark:bg-gray-800 md:py-8 lg:mb-8 lg:py-10"
+    class="mb-4 rounded-lg bg-slate-200 py-6 text-center shadow-sm md:py-8 lg:mb-8 lg:py-10 dark:bg-gray-800"
   >
     <div>
       <BaseTypography variant="heading" class="mb-4 lg:mb-8">

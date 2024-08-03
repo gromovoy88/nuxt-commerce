@@ -27,11 +27,10 @@ function updateProductPreview(code: string, uid: string) {
     return;
   }
 
-  const previewVariant = variants.value.find(
-    (variant) =>
-      variant.attributes?.some(
-        (attribute) => code === attribute?.code && attribute?.uid === uid
-      )
+  const previewVariant = variants.value.find((variant) =>
+    variant.attributes?.some(
+      (attribute) => code === attribute?.code && attribute?.uid === uid
+    )
   );
 
   if (previewVariant) {
@@ -45,12 +44,10 @@ function selectOption({ attributeCode, attributeUid }: ChangeVariantData) {
     [attributeCode]: attributeUid
   };
 
-  const selectedVariant = variants.value.find(
-    (variant) =>
-      variant.attributes?.every(
-        (attribute) =>
-          variantData.value[attribute?.code ?? ''] === attribute?.uid
-      )
+  const selectedVariant = variants.value.find((variant) =>
+    variant.attributes?.every(
+      (attribute) => variantData.value[attribute?.code ?? ''] === attribute?.uid
+    )
   );
 
   updateProductPreview(attributeCode, attributeUid);

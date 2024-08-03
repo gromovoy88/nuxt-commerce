@@ -10,7 +10,7 @@ export function useCmsApi() {
     const { data, error } = await useAsyncQuery(GetCmsPage, { identifier });
 
     return {
-      data: data.value.cmsPage ? mapPage(data.value.cmsPage) : null,
+      data: data.value?.cmsPage ? mapPage(data.value.cmsPage) : null,
       error: error.value
     };
   }

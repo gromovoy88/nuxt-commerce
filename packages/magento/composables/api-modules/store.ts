@@ -10,7 +10,7 @@ export function useStoreApi() {
     const { data, error } = await useAsyncQuery(GetStoreConfig);
 
     return {
-      data: mapStoreConfig(data.value.storeConfig),
+      data: data.value ? mapStoreConfig(data.value.storeConfig) : null,
       error: error.value
     };
   }
@@ -21,7 +21,7 @@ export function useStoreApi() {
     const { data, error } = await useAsyncQuery(GetAvailableStores);
 
     return {
-      data: data.value.availableStores
+      data: data.value?.availableStores
         ? data.value.availableStores.map((config) => mapStoreConfig(config))
         : null,
       error: error.value
@@ -43,7 +43,7 @@ export function useStoreApi() {
     const { data, error } = await useAsyncQuery(GetRoute, { url });
 
     return {
-      data: data.value.route ? mapRouteType(data.value) : null,
+      data: data.value?.route ? mapRouteType(data.value) : null,
       error: error.value
     };
   }

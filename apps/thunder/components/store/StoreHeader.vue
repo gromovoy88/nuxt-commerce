@@ -9,7 +9,7 @@ function openMenu() {
 </script>
 
 <template>
-  <header class="sticky top-0 z-50 mb-6 bg-gray-900 dark:bg-slate-800 md:mb-8">
+  <header class="sticky top-0 z-50 mb-6 bg-gray-900 md:mb-8 dark:bg-slate-800">
     <UContainer>
       <div class="relative py-4">
         <div class="flex gap-6 text-white lg:mb-4">

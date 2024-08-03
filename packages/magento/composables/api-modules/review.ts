@@ -21,7 +21,7 @@ export function useReviewApi() {
 
     return {
       data:
-        data.value.products?.items?.[0]?.reviews.items.map((review) =>
+        data.value?.products?.items?.[0]?.reviews.items.map((review) =>
           mapReview(review)
         ) ?? null,
       error: error.value
@@ -32,7 +32,7 @@ export function useReviewApi() {
     const { data, error } = await useAsyncQuery(ProductReviewRatingMetadata);
 
     return {
-      data: mapRating(data.value),
+      data: data.value ? mapRating(data.value) : null,
       error: error.value
     };
   }

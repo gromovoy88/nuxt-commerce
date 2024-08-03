@@ -41,7 +41,7 @@ export function useCustomerApi() {
     const { data, error } = await useAsyncQuery(GetCustomerData);
 
     return {
-      data: mapCustomer(data.value.customer),
+      data: data.value ? mapCustomer(data.value.customer) : null,
       error: error.value
     };
   }
@@ -107,7 +107,7 @@ export function useCustomerApi() {
     });
 
     return {
-      data: mapCustomerOrders(data.value.customer),
+      data: data.value ? mapCustomerOrders(data.value.customer) : null,
       error: error.value
     };
   }
@@ -162,7 +162,7 @@ export function useCustomerApi() {
     const { data, error } = await useAsyncQuery(GetCustomerCart);
 
     return {
-      data: { id: data.value.customerCart.id },
+      data: data.value ? { id: data.value.customerCart.id } : null,
       error: error.value
     };
   }

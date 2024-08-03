@@ -28,7 +28,7 @@ export function useCheckoutApi() {
 
     return {
       data:
-        data.value.checkoutAgreements?.map((item) =>
+        data.value?.checkoutAgreements?.map((item) =>
           mapCheckoutAgreement(item)
         ) ?? null,
       error: error.value

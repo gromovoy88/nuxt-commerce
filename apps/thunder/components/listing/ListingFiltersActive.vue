@@ -48,7 +48,7 @@ watch(
 <template>
   <div
     v-if="activeQueryFilters.length"
-    class="mb-4 flex flex-col gap-4 rounded-lg bg-white p-4 shadow-sm dark:bg-transparent md:bg-white lg:flex-row lg:flex-wrap"
+    class="mb-4 flex flex-col gap-4 rounded-lg bg-white p-4 shadow-sm md:bg-white lg:flex-row lg:flex-wrap dark:bg-transparent"
   >
     <div>
       <UButton

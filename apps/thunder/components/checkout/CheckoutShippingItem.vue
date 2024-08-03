@@ -30,7 +30,7 @@ defineEmits(['select-method']);
         </BaseTypography>
 
         <div
-          class="rounded-full bg-gray-100 px-2 text-xs text-blue-500 dark:bg-gray-700 sm:px-4 sm:py-1"
+          class="rounded-full bg-gray-100 px-2 text-xs text-blue-500 sm:px-4 sm:py-1 dark:bg-gray-700"
         >
           {{ item.methodTitle }}
         </div>

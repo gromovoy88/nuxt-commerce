@@ -23,7 +23,7 @@ defineEmits(['select-method']);
 
       <div class="mx-5 flex flex-col items-center space-y-1">
         <h2
-          class="text-lg font-medium text-gray-700 dark:text-gray-200 sm:text-2xl"
+          class="text-lg font-medium text-gray-700 sm:text-2xl dark:text-gray-200"
         >
           {{ methodTitle }}
         </h2>

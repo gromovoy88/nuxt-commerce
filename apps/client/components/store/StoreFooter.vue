@@ -9,12 +9,12 @@ const localePath = useLocalePath();
         <div class="mx-auto max-w-screen-xl px-4 py-8 lg:px-6 lg:py-16">
           <div class="mx-auto max-w-screen-md sm:text-center">
             <h2
-              class="mb-4 text-3xl font-extrabold tracking-tight text-gray-900 dark:text-white sm:text-4xl"
+              class="mb-4 text-3xl font-extrabold tracking-tight text-gray-900 sm:text-4xl dark:text-white"
             >
               {{ $t('messages.newsletter.title') }}
             </h2>
             <p
-              class="mx-auto mb-8 max-w-2xl font-light text-gray-500 dark:text-gray-400 sm:text-xl md:mb-12"
+              class="mx-auto mb-8 max-w-2xl font-light text-gray-500 sm:text-xl md:mb-12 dark:text-gray-400"
             >
               {{ $t('messages.newsletter.subtitle') }}
             </p>

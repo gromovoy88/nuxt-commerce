@@ -13,7 +13,7 @@ export function useCategoryApi() {
     });
 
     return {
-      data: data.value.categories?.items?.[0]
+      data: data.value?.categories?.items?.[0]
         ? mapCategory(data.value.categories.items[0])
         : null,
       error: error.value

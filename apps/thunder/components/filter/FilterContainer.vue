@@ -5,7 +5,7 @@ const isOpen = ref(false);
 <template>
   <div>
     <div
-      class="hidden rounded-lg bg-white p-4 text-gray-800 shadow-sm dark:text-gray-100 lg:block lg:dark:bg-gray-700"
+      class="hidden rounded-lg bg-white p-4 text-gray-800 shadow-sm lg:block dark:text-gray-100 lg:dark:bg-gray-700"
     >
       <slot />
     </div>
