@@ -1,0 +1,29 @@
+{
+  "homepage": "https://github.com/gromovoy88/nuxt-commerce",
+  "name": "thunder-framework",
+  "version": "1.0.0",
+  "repository": "github:gromovoy88/nuxt-commerce",
+  "private": true,
+  "license": "MIT",
+  "type": "module",
+  "scripts": {
+    "dev": "pnpm --filter thunder dev",
+    "build": "pnpm --filter thunder build",
+    "codegen": "pnpm --filter thunder codegen",
+    "lint": "pnpm --filter './apps/**' lint",
+    "lintfix": "pnpm --filter './packages/**' lintfix",
+    "dev:client": "pnpm --filter client dev",
+    "build:client": "pnpm --filter client build",
+    "codegen:client": "pnpm --filter client codegen",
+    "prepare": "husky install"
+  },
+  "devDependencies": {
+    "husky": "^8.0.3"
+  },
+  "keywords": [],
+  "author": "Yaroslav Hromovyi",
+  "packageManager": "pnpm@9.0.6",
+  "engines": {
+    "node": "18.x.x||20.x.x"
+  }
+}

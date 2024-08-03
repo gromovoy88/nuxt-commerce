@@ -1,2 +1,80 @@
-# nuxt-commerce
-Headless eCommerce application with Nuxt 3 and Magento 2 on the backend.
+# Thunder
+
+> **Note** This is the first iteration of this project. Is still under active development.
+
+<div align="center">
+
+<img src=".readme/preview.png" />
+
+</div>
+
+## Introduction
+
+Nuxt 3 e-commerce application. Implemented for the Magento 2 platform.
+
+
+## Getting started
+
+Node.js v16 or v18 and pnpm are required to run the project.
+
+```sh
+# Install dependencies
+pnpm i
+
+# Build packages
+pnpm run build
+
+# Run project storefront demo
+pnpm run dev
+```
+
+## Architecture
+
+Thunder Project was built as a framework divided into separate Nuxt layers, which are used in the demo storefront app.
+
+**Types**
+
+Common types for storefront and other layers. Created to unify project and smooth migration to other e-commerce frameworks.
+
+**Magento Layer**
+
+This layer provides an abstraction to Magento 2 API by providing composables functions.
+
+**Composables Layer**
+
+A set of composables like `useProductList` or `useCustomer` to use business logic and state in any Nuxt 3 project.
+
+**Pagebuilder Layer**
+
+Implementation of all default Magento page builder components.
+
+**Demo Apps**
+
+Two different demo client applications to get started with Thunder based on Nuxt 3.
+
+
+### Progress
+
+| Feature                        | Ongoing Enhancements | Done | In Progress | In the Pipeline |
+| ------------------------------ | -------------------- | ---- | ----------- | --------------- |
+| Performance                    |                      |      | ✅          |                 |
+| SEO                            | ✅                   |      |             |                 |
+| Cart                           | ✅                   |      |             |                 |
+| Search                         | ✅                   |      |             |                 |
+| Shipping                       | ✅                   |      |             |                 |
+| Checkout                       | ✅                   |      |             |                 |
+| Listing                        | ✅                   |      |             |                 |
+| Filtering                      | ✅                   |      |             |                 |
+| Wishlists                      | ✅                   |      |             |                 |
+| Account                        | ✅                   |      |             |                 |
+| Coupons                        | ✅                   |      |             |                 |
+| Product Reviews                | ✅                   |      |             |                 |
+| Product Categories List        | ✅                   |      |             |                 |
+| Mobile layout                  | ✅                   |      |             |                 |
+| Cookie Popup & GDPR Compliance |                      |      |             | ✅              |
+| Progressive Web App (PWA)      |                      |      |             | ✅              |
+| Language Support (i18n)        | ✅                   |      |             |                 |
+| CMS                            | ✅                   |      |             |                 |
+| Dark Mode support              | ✅                   |      |             |                 |
+| Magento Page Builder           |                      |      | ✅          |                 |
+| Demo client application        |                      |      | ✅          |                 |

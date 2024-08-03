@@ -1,0 +1,22 @@
+html {
+  @apply scroll-smooth;
+}
+body {
+  @apply scroll-smooth bg-gray-100 dark:bg-gray-900;
+}
+.page-enter-active,
+.page-leave-active {
+  @apply transition-all ease-linear;
+}
+.swiper-button-next,
+.swiper-button-prev {
+  width: 40px !important;
+  height: 40px !important;
+  border-radius: 100% !important;
+  background-color: #fff !important;
+
+  &:after {
+    font-size: 16px !important;
+    color: #000;
+  }
+}

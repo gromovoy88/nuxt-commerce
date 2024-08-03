@@ -1,0 +1,89 @@
+<script lang="ts" setup>
+const { data: customer } = useCustomer();
+const { logout } = useAuth();
+const { resetCart } = useCart();
+const localePath = useLocalePath();
+
+const { showError } = useUiErrorHandler();
+
+async function handleLogout() {
+  try {
+    await logout();
+
+    setTimeout(async () => {
+      await resetCart();
+
+      navigateTo({
+        path: localePath(paths.home)
+      });
+    }, 0);
+  } catch (error) {
+    showError(error);
+  }
+}
+</script>
+
+<template>
+  <div class="flex flex-col">
+    <div v-if="customer">
+      <div>
+        <div class="mb-4">
+          {{ $t('messages.general.welcome') }}, {{ customer.firstName }}
+          {{ customer.lastName }}
+        </div>
+        <div class="flex gap-4">
+          <NuxtLink :to="localePath(paths.account)">
+            <UButton
+              color="primary"
+              :label="$t('messages.account.yourAccount')"
+            >
+              <template #leading>
+                <Icon name="solar:user-circle-outline" class="text-2xl" />
+              </template>
+            </UButton>
+          </NuxtLink>
+          <UButton
+            color="primary"
+            variant="outline"
+            :label="$t('messages.account.logout')"
+            class="hover:text-black"
+            @click="handleLogout"
+          >
+            <template #leading>
+              <Icon name="solar:exit-linear" class="text-2xl" />
+            </template>
+          </UButton>
+        </div>
+      </div>
+    </div>
+    <div v-else>
+      <div class="mb-4 flex gap-4">
+        <div
+          class="flex h-10 w-10 items-center justify-center rounded-full bg-gray-200 text-black"
+        >
+          <Icon name="solar:user-circle-outline" class="text-2xl" />
+        </div>
+        <div class="flex gap-4">
+          <NuxtLink :to="localePath(paths.authLogin)">
+            <UButton
+              color="primary"
+              :label="$t('messages.account.signIn')"
+              class="hover:text-black"
+            />
+          </NuxtLink>
+          <NuxtLink :to="localePath(paths.authSignup)">
+            <UButton
+              color="primary"
+              variant="ghost"
+              :label="$t('messages.account.signUp')"
+              class="hover:text-black"
+            />
+          </NuxtLink>
+        </div>
+      </div>
+      <div class="px-4 text-sm text-gray-400 dark:text-gray-100">
+        <p>{{ $t('messages.account.loginMessage') }}</p>
+      </div>
+    </div>
+  </div>
+</template>

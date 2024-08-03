@@ -1,0 +1,23 @@
+{
+  "extends": ["@nuxtjs/eslint-config-typescript", "plugin:prettier/recommended"],
+  "overrides": [
+    {
+      "files": [
+        "*.ts"
+      ],
+      "processor": "@graphql-eslint/graphql"
+    },
+    {
+      "files": [
+        "*.gql"
+      ],
+      "parser": "@graphql-eslint/eslint-plugin",
+      "plugins": [
+        "@graphql-eslint"
+      ],
+      "rules": {
+        "@graphql-eslint/known-type-names": "error"
+      }
+    }
+  ]
+}
