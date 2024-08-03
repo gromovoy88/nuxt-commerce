@@ -15,17 +15,17 @@ Nuxt 3 e-commerce application. Implemented for the Magento 2 platform.
 
 ## Getting started
 
-Node.js v16 or v18 and pnpm are required to run the project.
+Node.js v20 and pnpm are required to run the project.
 
 ```sh
 # Install dependencies
 pnpm i
 
 # Build packages
-pnpm run build
+pnpm build
 
 # Run project storefront demo
-pnpm run dev
+pnpm dev
 ```
 
 ## Architecture
