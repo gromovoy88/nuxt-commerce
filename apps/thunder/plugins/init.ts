@@ -44,7 +44,7 @@ export default defineNuxtPlugin(async (): Promise<void> => {
       await updateCustomer();
     }
   } catch (error) {
-    if (process.client) {
+    if (import.meta.client) {
       if (!isReloaded.value) {
         clearAllCookies();
         window.location.reload();

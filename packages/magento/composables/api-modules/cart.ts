@@ -1,9 +1,5 @@
-import type { Cart } from '@thunder/types';
-import type {
-  CartItemInput,
-  FetchResult,
-  SetBillingAddressInput
-} from '../../types';
+import type { Cart, FetchResult } from '@thunder/types';
+import type { CartItemInput, SetBillingAddressInput } from '../../types';
 import { CreateEmptyCart } from '../../graphql/mutations/createEmptyCart';
 import { GetCart } from '../../graphql/queries/getCart';
 import { ApplyDiscountCoupon } from '../../graphql/mutations/applyDiscountCoupon';

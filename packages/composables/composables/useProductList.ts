@@ -9,6 +9,8 @@ export interface UseProductList {
   resetProductListInput: () => void;
 }
 
+export const GRID_PER_PAGE = 16;
+
 export function useProductList(): UseProductList {
   const data = useState<ProductList | null>('productList', () => null);
   const loading = useState<boolean>('productListLoading', () => false);

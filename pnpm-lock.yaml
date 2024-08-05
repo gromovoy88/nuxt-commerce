@@ -14,6 +14,9 @@ importers:
 
   apps/thunder:
     dependencies:
+      '@apollo/client':
+        specifier: ^3.11.2
+        version: 3.11.2(graphql-ws@5.16.0(graphql@16.9.0))(graphql@16.9.0)
       '@nuxt/ui':
         specifier: npm:@nuxt/ui-edge@latest
         version: '@nuxt/ui-edge@2.18.3-28710305.8ac9ca4(change-case@4.1.2)(focus-trap@7.5.4)(magicast@0.3.4)(rollup@4.20.0)(ts-node@10.9.2(@types/node@22.1.0)(typescript@5.5.4))(vite@5.3.5(@types/node@22.1.0)(terser@5.31.3))(vue@3.4.35(typescript@5.5.4))'
@@ -45,6 +48,9 @@ importers:
       '@nuxt/eslint-config':
         specifier: ^0.4.0
         version: 0.4.0(eslint@8.57.0)(typescript@5.5.4)
+      '@nuxt/icon':
+        specifier: ^1.4.5
+        version: 1.4.5(magicast@0.3.4)(rollup@4.20.0)(vite@5.3.5(@types/node@22.1.0)(terser@5.31.3))(vue@3.4.35(typescript@5.5.4))
       '@nuxt/image':
         specifier: 1.7.0
         version: 1.7.0(ioredis@5.4.1)(magicast@0.3.4)(rollup@4.20.0)
@@ -81,18 +87,12 @@ importers:
       eslint-plugin-prettier:
         specifier: ^5.0.0
         version: 5.2.1(@types/eslint@9.6.0)(eslint-config-prettier@9.1.0(eslint@8.57.0))(eslint@8.57.0)(prettier@3.3.3)
-      graphql:
-        specifier: ^16.9.0
-        version: 16.9.0
       node-fetch-native:
         specifier: 1.6.4
         version: 1.6.4
       nuxt:
         specifier: ^3.12.4
         version: 3.12.4(@parcel/watcher@2.4.1)(@types/node@22.1.0)(eslint@8.57.0)(ioredis@5.4.1)(magicast@0.3.4)(optionator@0.9.4)(rollup@4.20.0)(terser@5.31.3)(typescript@5.5.4)(vite@5.3.5(@types/node@22.1.0)(terser@5.31.3))
-      nuxt-icon:
-        specifier: ^0.3.3
-        version: 0.3.3(magicast@0.3.4)(rollup@4.20.0)(vue@3.4.35(typescript@5.5.4))
       postcss-custom-properties:
         specifier: ^13.2.1
         version: 13.3.12(postcss@8.4.40)
@@ -124,15 +124,9 @@ importers:
         specifier: workspace:*
         version: link:../types
     devDependencies:
-      '@graphql-eslint/eslint-plugin':
-        specifier: ^3.20.1
-        version: 3.20.1(@babel/core@7.25.2)(@types/node@22.1.0)(graphql@16.9.0)
       '@nuxt/eslint-config':
         specifier: ^0.4.0
         version: 0.4.0(eslint@8.57.0)(typescript@5.5.4)
-      '@nuxtjs/apollo':
-        specifier: 5.0.0-alpha.12
-        version: 5.0.0-alpha.12(magicast@0.3.4)(rollup@4.20.0)(typescript@5.5.4)(vue@3.4.35(typescript@5.5.4))
       '@nuxtjs/eslint-config-typescript':
         specifier: ^12.1.0
         version: 12.1.0(eslint@8.57.0)(typescript@5.5.4)
@@ -1391,11 +1385,6 @@ packages:
 
   '@iconify/utils@2.1.29':
     resolution: {integrity: sha512-wCcTsmlJvTi1VWBgcJ7HeuWlh7gLGWY7L9HmbgMfjOfsoo7DADemB2Nqnrw1KvCdEAxLL5wTMBAOP5BesFrtng==}
-
-  '@iconify/vue@4.1.2':
-    resolution: {integrity: sha512-CQnYqLiQD5LOAaXhBrmj1mdL2/NCJvwcC4jtW2Z8ukhThiFkLDkutarTOV2trfc9EXqUqRs0KqXOL9pZ/IyysA==}
-    peerDependencies:
-      vue: '>=3'
 
   '@iconify/vue@4.1.3-beta.1':
     resolution: {integrity: sha512-N7iEOnWfhjbMqiyGMhotJKip23nrK5l3+T1hQwpEjKeMD2o4zOjm8zmeEfOOH81EXllhhOm7upR8jcH499YRWA==}
@@ -4783,12 +4772,6 @@ packages:
     engines: {node: ^16.10.0 || >=18.0.0}
     hasBin: true
 
-  nuxt-config-schema@0.4.6:
-    resolution: {integrity: sha512-kHLWJFynj5QrxVZ1MjY2xmDaTSN1BCMLGExA+hMMLoCb3wn9TJlDVqnE/nSdUJPMRkNn/NQ5WP9NLA9vlAXRUw==}
-
-  nuxt-icon@0.3.3:
-    resolution: {integrity: sha512-KdhJAigBGTP8/YIFZ3orwetk40AgLq6VQ5HRYuDLmv5hiDptor9Ro+WIdZggHw7nciRxZvDdQkEwi9B5G/jrkQ==}
-
   nuxt-swiper@1.2.2:
     resolution: {integrity: sha512-y4s/srISP4OuhXbYg9/W1/6EWnbcoHRGEKBKAvGP0I2h0b3enhqZNEk7854M3F89ys8waacBXektPzamgl5xwQ==}
 
@@ -7994,11 +7977,6 @@ snapshots:
       mlly: 1.7.1
     transitivePeerDependencies:
       - supports-color
-
-  '@iconify/vue@4.1.2(vue@3.4.35(typescript@5.5.4))':
-    dependencies:
-      '@iconify/types': 2.0.0
-      vue: 3.4.35(typescript@5.5.4)
 
   '@iconify/vue@4.1.3-beta.1(vue@3.4.35(typescript@5.5.4))':
     dependencies:
@@ -12312,29 +12290,6 @@ snapshots:
   nuxi@3.12.0:
     optionalDependencies:
       fsevents: 2.3.3
-
-  nuxt-config-schema@0.4.6(magicast@0.3.4)(rollup@4.20.0):
-    dependencies:
-      '@nuxt/kit': 3.12.4(magicast@0.3.4)(rollup@4.20.0)
-      defu: 6.1.4
-      jiti: 1.21.6
-      pathe: 1.1.2
-      untyped: 1.4.2
-    transitivePeerDependencies:
-      - magicast
-      - rollup
-      - supports-color
-
-  nuxt-icon@0.3.3(magicast@0.3.4)(rollup@4.20.0)(vue@3.4.35(typescript@5.5.4)):
-    dependencies:
-      '@iconify/vue': 4.1.2(vue@3.4.35(typescript@5.5.4))
-      '@nuxt/kit': 3.12.4(magicast@0.3.4)(rollup@4.20.0)
-      nuxt-config-schema: 0.4.6(magicast@0.3.4)(rollup@4.20.0)
-    transitivePeerDependencies:
-      - magicast
-      - rollup
-      - supports-color
-      - vue
 
   nuxt-swiper@1.2.2(magicast@0.3.4)(rollup@4.20.0):
     dependencies:

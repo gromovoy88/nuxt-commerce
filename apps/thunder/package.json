@@ -27,18 +27,20 @@
     "codegen:watch": "graphql-codegen --watch"
   },
   "dependencies": {
+    "@apollo/client": "^3.11.2",
     "@nuxt/ui": "npm:@nuxt/ui-edge@latest",
     "@nuxtjs/robots": "^3.0.0",
-    "nuxt-swiper": "^1.2.2",
-    "@thunder/types": "workspace:*",
+    "@thunder/composables": "workspace:*",
     "@thunder/magento": "workspace:*",
-    "@thunder/composables": "workspace:*"
+    "@thunder/types": "workspace:*",
+    "nuxt-swiper": "^1.2.2"
   },
   "devDependencies": {
     "@graphql-codegen/cli": "^5.0.2",
     "@graphql-codegen/client-preset": "^4.3.3",
     "@graphql-eslint/eslint-plugin": "^3.20.1",
     "@nuxt/eslint-config": "^0.4.0",
+    "@nuxt/icon": "^1.4.5",
     "@nuxt/image": "1.7.0",
     "@nuxtjs/apollo": "5.0.0-alpha.12",
     "@nuxtjs/eslint-config-typescript": "^12.1.0",
@@ -51,10 +53,8 @@
     "eslint": "^8.50.0",
     "eslint-config-prettier": "^9.0.0",
     "eslint-plugin-prettier": "^5.0.0",
-    "graphql": "^16.9.0",
     "node-fetch-native": "1.6.4",
     "nuxt": "^3.12.4",
-    "nuxt-icon": "^0.3.3",
     "postcss-custom-properties": "^13.2.1",
     "postcss-import": "^15.1.0",
     "prettier": "^3.3.3",

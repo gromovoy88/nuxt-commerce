@@ -8,7 +8,6 @@ import { ProductPage as ProductPageQuery } from '../../graphql/queries/productPa
 import { ProductListCrosssel } from '../../graphql/queries/productListCrosssel';
 import { ProductListUpsell } from '../../graphql/queries/productListUpsell';
 import { mapFilter, mapProductPage, mapSort } from '../../utils/mappers';
-import { GRID_PER_PAGE } from '../../utils/constants';
 
 export function useProductApi() {
   async function fetchProducts({
@@ -23,7 +22,7 @@ export function useProductApi() {
       filters,
       sort,
       search,
-      pageSize: pageSize ?? GRID_PER_PAGE
+      pageSize
     });
 
     return {

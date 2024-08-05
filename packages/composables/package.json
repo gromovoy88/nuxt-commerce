@@ -24,8 +24,6 @@
     "nuxt": "^3.12.4",
     "typescript": "^5.3.3",
     "prettier": "^3.3.3",
-    "@nuxtjs/apollo": "5.0.0-alpha.12",
-    "@nuxtjs/eslint-config-typescript": "^12.1.0",
-    "@graphql-eslint/eslint-plugin": "^3.20.1"
+    "@nuxtjs/eslint-config-typescript": "^12.1.0"
   }
 }

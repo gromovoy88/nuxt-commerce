@@ -7,7 +7,7 @@ export default defineNuxtConfig({
   modules: [
     '@nuxtjs/i18n',
     '@nuxtjs/apollo',
-    'nuxt-icon',
+    '@nuxt/icon',
     '@nuxt/ui',
     '@nuxt/image',
     '@nuxtjs/google-fonts',
@@ -63,10 +63,6 @@ export default defineNuxtConfig({
     includeWorkspace: true
   },
 
-  build: {
-    transpile: ['tslib']
-  },
-
   image: {
     domains: ['api.thunderjs.dev', 'vercel.app']
   },
@@ -99,5 +95,5 @@ export default defineNuxtConfig({
     modules: ['navigation', 'pagination']
   },
 
-  compatibilityDate: '2024-08-03'
+  compatibilityDate: '2024-08-04'
 });

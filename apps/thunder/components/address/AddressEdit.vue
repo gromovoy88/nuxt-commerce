@@ -21,7 +21,7 @@ const addressInput = ref<Address>({
   street: [...(currentAddress?.street ?? [])],
   city: currentAddress?.city ?? '',
   country: currentAddress?.country ?? '',
-  region: currentAddress?.region + '' ?? '',
+  region: currentAddress?.region ?? '',
   telephone: currentAddress?.telephone ?? '',
   postcode: currentAddress?.postcode ?? ''
 });
