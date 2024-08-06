@@ -1,3 +1,3 @@
-import { mockProductPage } from '../../../mocks';
+import { mockProductPage } from '../../mocks';
 
 export default defineEventHandler(() => mockProductPage());

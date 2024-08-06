@@ -2,7 +2,7 @@ import thunderConfig from './thunder.config';
 
 export default defineNuxtConfig({
   debug: process.env.NODE_ENV === 'development',
-  extends: ['@thunder/magento', '@thunder/composables', '@thunder/shop-mock'],
+  extends: ['@thunder/shop-mock', '@thunder/magento', '@thunder/composables'],
 
   modules: [
     '@nuxtjs/i18n',

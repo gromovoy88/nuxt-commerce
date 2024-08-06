@@ -14,68 +14,54 @@ export interface UseCartItem {
 
 export function useCartItem(): UseCartItem {
   const loading = useState<boolean>('cartItemLoading', () => false);
-  const { data: cart, setCart } = useCart();
-  const { getCartId } = useCartToken();
-  const { addItem, changeItemQuantity, removeItem } = useCartApi();
+  const { data: cartData } = useCart();
 
-  async function removeItemAndUpdateCart(cartItemUid: string): Promise<void> {
-    try {
-      loading.value = true;
-
-      const { data, error } = await removeItem(getCartId(), cartItemUid);
-
-      if (!data) {
-        throw new Error(error?.message || 'Failed to remove item from cart.');
+  async function removeItemAndUpdateCart(itemUid: string): Promise<void> {
+    loading.value = true;
+    const response = await useFetch('/api/cart-item/remove', {
+      method: 'post',
+      body: {
+        cartId: cartData.value?.id,
+        itemUid
       }
-
-      setCart(data);
-    } finally {
-      loading.value = false;
-    }
+    });
+    cartData.value = response.data.value;
+    loading.value = false;
   }
 
   async function changeQuantityAndUpdateCart(
     itemUid: string,
     quantity: number
   ): Promise<void> {
-    try {
-      loading.value = true;
-
-      const { data, error } = await changeItemQuantity(
-        getCartId(),
+    loading.value = true;
+    const response = await useFetch('/api/cart-item/update', {
+      method: 'post',
+      body: {
+        cartId: cartData.value?.id,
         itemUid,
         quantity
-      );
-
-      if (!data) {
-        throw new Error(error?.message || 'Failed to update cart item.');
       }
-
-      setCart(data);
-    } finally {
-      loading.value = false;
-    }
+    });
+    cartData.value = response.data.value;
+    loading.value = false;
   }
 
   async function addItemAndUpdateCart(
     cartItems: CartItemInput[]
   ): Promise<void> {
-    try {
-      loading.value = true;
-
-      const { data, error } = await addItem(getCartId(), cartItems);
-
-      if (!data) {
-        throw new Error(error?.message || 'Failed to add cart item.');
+    loading.value = true;
+    const response = await useFetch('/api/cart-item/add', {
+      method: 'post',
+      body: {
+        cartId: cartData.value?.id,
+        cartItems
       }
-
-      setCart(data);
-    } finally {
-      loading.value = false;
-    }
+    });
+    cartData.value = response.data.value;
+    loading.value = false;
   }
 
-  const cartItems = computed(() => cart.value?.items ?? []);
+  const cartItems = computed(() => cartData.value?.items ?? []);
 
   return {
     loading,

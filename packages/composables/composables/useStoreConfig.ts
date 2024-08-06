@@ -8,25 +8,15 @@ export interface UseStoreConfig {
 
 export function useStoreConfig(): UseStoreConfig {
   const data = useState<StoreConfig | null>('storeConfig', () => null);
+  const error = useState<Error | null>('storeConfigError', () => null);
   const loading = useState<boolean>('storeConfigLoading', () => false);
-  const { fetchStoreConfig } = useStoreApi();
 
   async function updateStoreConfig(): Promise<void> {
-    try {
-      loading.value = true;
-
-      const { data: storeConfig, error } = await fetchStoreConfig();
-
-      if (!storeConfig) {
-        throw new Error(
-          error?.message || 'Could not get available store configuration'
-        );
-      }
-
-      data.value = storeConfig;
-    } finally {
-      loading.value = false;
-    }
+    loading.value = true;
+    const response = await useFetch('/api/store/config');
+    data.value = response.data.value;
+    error.value = response.error.value;
+    loading.value = false;
   }
 
   return {

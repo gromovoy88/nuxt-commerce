@@ -63,9 +63,9 @@ export const mockSortField = (): SortField => ({
 
 // Mock for ProductList
 export const mockProductList = (): ProductList => ({
-  items: Array.from({ length: 10 }, mockProduct),
+  items: Array.from({ length: 20 }, mockProduct),
   filters: Array.from({ length: 3 }, mockFilter),
   sort: mockSortField(),
   pageInfo: mockPageInfo(),
-  totalCount: faker.number.int()
+  totalCount: faker.number.int(20)
 });

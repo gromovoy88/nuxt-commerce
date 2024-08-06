@@ -9,19 +9,15 @@ export interface UseCategory {
 
 export function useCategory(): UseCategory {
   const data = useState<Category | null>('category', () => null);
+  const error = useState<Error | null>('categoryError', () => null);
   const loading = useState<boolean>('categoryLoading', () => false);
-  const { fetchCategory } = useCategoryApi();
 
   async function updateCategory(urlPath: string) {
-    try {
-      loading.value = true;
-
-      const { data: category } = await fetchCategory(urlPath);
-
-      data.value = category;
-    } finally {
-      loading.value = false;
-    }
+    loading.value = true;
+    const response = await useFetch(`/api/category/${urlPath}`);
+    data.value = response.data.value;
+    error.value = response.error.value;
+    loading.value = false;
   }
 
   function resetCategory() {
