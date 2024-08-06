@@ -32,6 +32,7 @@
     "@nuxtjs/robots": "^3.0.0",
     "@thunder/composables": "workspace:*",
     "@thunder/magento": "workspace:*",
+    "@thunder/shop-mock": "workspace:*",
     "@thunder/types": "workspace:*",
     "nuxt-swiper": "^1.2.2"
   },

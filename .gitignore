@@ -12,3 +12,5 @@ build
 !/packages/magento/**
 !/packages/types
 !/packages/types/**
+!/packages/shop-mock
+!/packages/shop-mock/**
