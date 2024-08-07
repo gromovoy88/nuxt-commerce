@@ -8,7 +8,7 @@ export default defineNuxtPlugin(async (): Promise<void> => {
   const isReloaded = useCookie(config.reloadedToken);
   const { updateStoreConfig, data: storeConfig } = useStoreConfig();
   const { updateCustomer } = useCustomer();
-  const { createEmptyCart, updateCart } = useCart();
+  const { createEmptyCart, updateCart, data: cartData } = useCart();
   const { clients } = useApollo();
   const defaultClient: ApolloClient<any> = (clients as any).default;
 
@@ -35,10 +35,12 @@ export default defineNuxtPlugin(async (): Promise<void> => {
     storeToken.value = storeConfig.value?.storeCode;
 
     if (!cartToken.value) {
-      cartToken.value = await createEmptyCart();
+      await createEmptyCart();
+    } else {
+      await updateCart(cartToken.value);
     }
 
-    await updateCart(cartToken.value ?? '');
+    cartToken.value = cartData.value?.id;
 
     if (authToken.value) {
       await updateCustomer();

@@ -4,25 +4,6 @@ const localePath = useLocalePath();
 
 const isOpen = useState('isStoreInfoOpen');
 
-const items = [
-  {
-    label: "What's New ",
-    link: localePath(getCategoryUrl('what-is-new'))
-  },
-  {
-    label: 'Men',
-    link: localePath(getCategoryUrl('men/tops-men'))
-  },
-  {
-    label: 'Women',
-    link: localePath(getCategoryUrl('women/tops-women'))
-  },
-  {
-    label: 'Gear ',
-    link: localePath(getCategoryUrl('gear'))
-  }
-];
-
 function handleClick() {
   isOpen.value = false;
 }
@@ -44,7 +25,7 @@ function handleClick() {
       v-for="item in data?.children?.slice(0, 3)"
       :key="item.uid"
       class="hover:cursor-pointer"
-      :to="item.urlPath"
+      :to="localePath(getCategoryUrl(item.urlPath))"
       @click="handleClick"
     >
       <BaseTypography variant="subtitle">
