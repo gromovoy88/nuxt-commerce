@@ -1,32 +1,29 @@
 <script lang="ts" setup>
-const { updateProductList, data, loading } = useProductList();
-
-async function updateListing() {
-  await updateProductList();
-}
-
-await updateListing();
+const { data, loading, updateProductList } = useProductList();
 </script>
 
 <template>
   <div>
     <ListingSkeleton v-if="loading" />
-    <ListingContainer v-if="data && !loading">
+    <ListingContainer v-if="data">
       <template #active-filters>
         <ListingFiltersActive
           :filters="data.filters"
-          @update-product-list="updateListing"
+          @update-product-list="updateProductList"
         />
       </template>
       <template #toolbar-top>
         <ListingItemsCount :count="data.totalCount" />
-        <ListingSort :sort="data.sort" @update-product-list="updateListing" />
+        <ListingSort
+          :sort="data.sort"
+          @update-product-list="updateProductList"
+        />
       </template>
       <template #sidebar>
         <FilterContainer>
           <ListingFilters
             :filters="data.filters"
-            @update-product-list="updateListing"
+            @update-product-list="updateProductList"
           />
         </FilterContainer>
       </template>
@@ -44,7 +41,7 @@ await updateListing();
           <ListingPagination
             :pagination="data.pageInfo"
             :total-count="data.totalCount"
-            @update-product-list="updateListing"
+            @update-product-list="updateProductList"
           />
         </ListingToolbar>
       </template>

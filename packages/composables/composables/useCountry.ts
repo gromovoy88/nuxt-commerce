@@ -13,17 +13,21 @@ export function useCountry(): UseCountry {
   const loading = useState<boolean>('countryLoading', () => false);
 
   async function updateCountries(): Promise<void> {
-    loading.value = true;
-    const response = await useFetch('/api/countries');
-    data.value = response.data.value ?? [];
-    error.value = response.error.value;
-    loading.value = false;
+    try {
+      loading.value = true;
+      data.value = await $fetch('/api/countries');
+    } catch (e) {
+      if (e instanceof Error) {
+        error.value = e;
+      }
+    } finally {
+      loading.value = false;
+    }
   }
 
   async function findCountry(countryCode: string): Promise<Country> {
     try {
       loading.value = true;
-
       await updateCountries();
 
       const country = data.value.find(

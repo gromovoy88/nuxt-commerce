@@ -1,4 +1,4 @@
-import type { FiltersInput } from '@thunder/magento/types';
+import type { FiltersInput } from '@thunder/types';
 
 export type QueryFilter = {
   name: string;

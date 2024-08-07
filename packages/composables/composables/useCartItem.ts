@@ -1,5 +1,4 @@
-import type { CartItemInput } from '@thunder/magento/types';
-import type { CartItem } from '@thunder/types';
+import type { CartItemInput, CartItem } from '@thunder/types';
 
 export interface UseCartItem {
   loading: Ref<boolean>;
@@ -14,51 +13,70 @@ export interface UseCartItem {
 
 export function useCartItem(): UseCartItem {
   const loading = useState<boolean>('cartItemLoading', () => false);
+  const error = useState<Error | null>('cartItemError', () => null);
   const { data: cartData } = useCart();
 
   async function removeItemAndUpdateCart(itemUid: string): Promise<void> {
-    loading.value = true;
-    const response = await useFetch('/api/cart-item/remove', {
-      method: 'post',
-      body: {
-        cartId: cartData.value?.id,
-        itemUid
+    try {
+      loading.value = true;
+      cartData.value = await $fetch('/api/cart-item/remove', {
+        method: 'post',
+        body: {
+          cartId: cartData.value?.id,
+          itemUid
+        }
+      });
+    } catch (e) {
+      if (e instanceof Error) {
+        error.value = e;
       }
-    });
-    cartData.value = response.data.value;
-    loading.value = false;
+    } finally {
+      loading.value = false;
+    }
   }
 
   async function changeQuantityAndUpdateCart(
     itemUid: string,
     quantity: number
   ): Promise<void> {
-    loading.value = true;
-    const response = await useFetch('/api/cart-item/update', {
-      method: 'post',
-      body: {
-        cartId: cartData.value?.id,
-        itemUid,
-        quantity
+    try {
+      loading.value = true;
+      cartData.value = await $fetch('/api/cart-item/update', {
+        method: 'post',
+        body: {
+          cartId: cartData.value?.id,
+          itemUid,
+          quantity
+        }
+      });
+    } catch (e) {
+      if (e instanceof Error) {
+        error.value = e;
       }
-    });
-    cartData.value = response.data.value;
-    loading.value = false;
+    } finally {
+      loading.value = false;
+    }
   }
 
   async function addItemAndUpdateCart(
     cartItems: CartItemInput[]
   ): Promise<void> {
-    loading.value = true;
-    const response = await useFetch('/api/cart-item/add', {
-      method: 'post',
-      body: {
-        cartId: cartData.value?.id,
-        cartItems
+    try {
+      loading.value = true;
+      cartData.value = await $fetch('/api/cart-item/add', {
+        method: 'post',
+        body: {
+          cartId: cartData.value?.id,
+          cartItems
+        }
+      });
+    } catch (e) {
+      if (e instanceof Error) {
+        error.value = e;
       }
-    });
-    cartData.value = response.data.value;
-    loading.value = false;
+    } finally {
+      loading.value = false;
+    }
   }
 
   const cartItems = computed(() => cartData.value?.items ?? []);

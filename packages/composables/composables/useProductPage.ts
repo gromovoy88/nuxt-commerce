@@ -13,12 +13,16 @@ export function useProductPage(): UseProductPage {
   const loading = useState<boolean>('productPageLoading', () => false);
 
   async function updateProductPage(id: string): Promise<void> {
-    loading.value = true;
-    const response = await useFetch(`/api/product-page/${id}`);
-
-    data.value = response.data.value;
-    error.value = response.error.value;
-    loading.value = false;
+    try {
+      loading.value = true;
+      data.value = await $fetch(`/api/product-page/${id || 123}`);
+    } catch (e) {
+      if (e instanceof Error) {
+        error.value = e;
+      }
+    } finally {
+      loading.value = false;
+    }
   }
 
   return {

@@ -20,28 +20,35 @@ export function useCart(): UseCart {
   }
 
   async function createEmptyCart(): Promise<void> {
-    loading.value = true;
+    try {
+      loading.value = true;
+      data.value = await $fetch('/api/cart-create', {
+        method: 'POST'
+      });
 
-    const response = await useFetch('/api/cart-create', {
-      method: 'POST'
-    });
-
-    if (response.data.value) {
-      setCartId(response.data.value.id);
+      if (data.value) {
+        setCartId(data.value.id);
+      }
+    } catch (e) {
+      if (e instanceof Error) {
+        error.value = e;
+      }
+    } finally {
+      loading.value = false;
     }
-
-    data.value = response.data.value;
-    error.value = response.error.value;
-    loading.value = true;
   }
 
   async function updateCart(cartId: string): Promise<void> {
-    loading.value = true;
-
-    const response = await useFetch(`/api/cart/${cartId || '123'}`);
-    data.value = response.data.value;
-    error.value = response.error.value;
-    loading.value = false;
+    try {
+      loading.value = true;
+      data.value = await $fetch(`/api/cart/${cartId || '123'}`);
+    } catch (e) {
+      if (e instanceof Error) {
+        error.value = e;
+      }
+    } finally {
+      loading.value = false;
+    }
   }
 
   async function resetCart(): Promise<void> {

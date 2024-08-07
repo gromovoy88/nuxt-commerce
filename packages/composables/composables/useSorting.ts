@@ -1,4 +1,4 @@
-import type { SortInput } from '@thunder/magento/types';
+import type { SortInput } from '@thunder/types';
 
 export interface UseSorting {
   sortValue: Ref<string>;

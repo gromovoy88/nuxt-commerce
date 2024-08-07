@@ -16,11 +16,16 @@ export function useMegaMenu(): UseMegaMenu {
   const showMegaMenu = useState<boolean>('showMegaMenu', () => false);
 
   async function updateMegaMenu(): Promise<void> {
-    loading.value = true;
-    const response = await useFetch('/api/menu');
-    data.value = response.data.value;
-    error.value = response.error.value;
-    loading.value = false;
+    try {
+      loading.value = true;
+      data.value = await $fetch('/api/menu');
+    } catch (e) {
+      if (e instanceof Error) {
+        error.value = e;
+      }
+    } finally {
+      loading.value = false;
+    }
   }
 
   const menuItems = computed(() => data.value?.children ?? []);

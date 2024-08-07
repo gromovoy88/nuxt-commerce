@@ -1,11 +1,12 @@
 <script setup lang="ts">
 const route = useRoute();
 const { data, updateCategory } = useCategory();
+const { updateProductList } = useProductList();
 const { input } = useProductList();
 
 const urlPath = [...route.params.slug].join('/');
 
-await updateCategory(urlPath);
+await useAsyncData('cat', () => updateCategory(urlPath));
 
 if (data.value?.uid) {
   input.value = {
@@ -18,6 +19,8 @@ if (data.value?.uid) {
 } else {
   redirectOrNotFound(urlPath);
 }
+
+await useAsyncData('list', () => updateProductList());
 
 useHead({
   title: computed(() => `${data.value?.name ?? ''}`),

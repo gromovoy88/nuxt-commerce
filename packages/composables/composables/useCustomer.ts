@@ -22,14 +22,18 @@ export function useCustomer(): UseCustomer {
   }
 
   async function updateCustomer(): Promise<void> {
-    loading.value = true;
-    const response = await useFetch('/api/account/customer', {
-      method: 'POST'
-    });
-
-    data.value = response.data.value;
-    error.value = response.error.value;
-    loading.value = false;
+    try {
+      loading.value = true;
+      data.value = await $fetch('/api/account/customer', {
+        method: 'POST'
+      });
+    } catch (e) {
+      if (e instanceof Error) {
+        error.value = e;
+      }
+    } finally {
+      loading.value = false;
+    }
   }
 
   return {

@@ -1,4 +1,4 @@
-import type { LoginUserInput } from '@thunder/magento/types';
+import type { LoginUserInput } from '@thunder/types';
 
 export interface UseAuth {
   login: (input: LoginUserInput) => Promise<void>;

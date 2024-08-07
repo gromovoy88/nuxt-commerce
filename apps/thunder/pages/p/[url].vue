@@ -8,7 +8,7 @@ const params = useRoute().params as RouteParams;
 await updateProductPage(params.url);
 
 useHead({
-  title: computed(() => `${product?.name ?? ''}`),
+  title: computed(() => `${product?.value?.name ?? ''}`),
   titleTemplate: '%s - Thunder Commerce',
   meta: [
     { name: 'viewport', content: 'width=device-width, initial-scale=1' },

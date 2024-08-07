@@ -9,8 +9,6 @@ export interface UseProductList {
   resetProductListInput: () => void;
 }
 
-export const GRID_PER_PAGE = 16;
-
 export function useProductList(): UseProductList {
   const data = useState<ProductList | null>('productList', () => null);
   const error = useState<Error | null>('productListError', () => null);
@@ -24,21 +22,25 @@ export function useProductList(): UseProductList {
   const { data: storeConfig } = useStoreConfig();
 
   async function updateProductList(): Promise<void> {
-    loading.value = true;
-    const { pageSize, filters, sort, currentPage = 1, search } = input.value;
-    const response = await useFetch('/api/products', {
-      body: {
-        sort: { ...getSort(), ...sort },
-        filters: { ...getFilters(), ...filters },
-        currentPage: getPage() || currentPage,
-        pageSize: pageSize || storeConfig.value?.gridPerPage || GRID_PER_PAGE,
-        search: getSearch() || search
+    try {
+      loading.value = true;
+      const { pageSize, filters, sort, currentPage = 1, search } = input.value;
+      data.value = await $fetch('/api/products', {
+        query: {
+          sort: { ...getSort(), ...sort },
+          filters: { ...getFilters(), ...filters },
+          currentPage: getPage() || currentPage,
+          pageSize: pageSize || storeConfig.value?.gridPerPage,
+          search: getSearch() || search
+        }
+      });
+    } catch (e) {
+      if (e instanceof Error) {
+        error.value = e;
       }
-    });
-
-    data.value = response.data.value;
-    error.value = response.error.value;
-    loading.value = false;
+    } finally {
+      loading.value = false;
+    }
   }
 
   function resetProductListInput(): void {

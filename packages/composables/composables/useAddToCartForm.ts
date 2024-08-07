@@ -1,4 +1,4 @@
-import type { CartItemInput } from '@thunder/magento/types';
+import type { CartItemInput } from '@thunder/types';
 
 export interface UseAddToCartForm {
   input: Ref<CartItemInput[]>;

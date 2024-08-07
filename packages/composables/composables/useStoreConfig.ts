@@ -12,11 +12,16 @@ export function useStoreConfig(): UseStoreConfig {
   const loading = useState<boolean>('storeConfigLoading', () => false);
 
   async function updateStoreConfig(): Promise<void> {
-    loading.value = true;
-    const response = await useFetch('/api/store/config');
-    data.value = response.data.value;
-    error.value = response.error.value;
-    loading.value = false;
+    try {
+      loading.value = true;
+      data.value = await $fetch('/api/store/config');
+    } catch (e) {
+      if (e instanceof Error) {
+        error.value = e;
+      }
+    } finally {
+      loading.value = false;
+    }
   }
 
   return {

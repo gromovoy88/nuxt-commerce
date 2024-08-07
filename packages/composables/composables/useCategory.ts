@@ -13,11 +13,16 @@ export function useCategory(): UseCategory {
   const loading = useState<boolean>('categoryLoading', () => false);
 
   async function updateCategory(urlPath: string) {
-    loading.value = true;
-    const response = await useFetch(`/api/category/${urlPath}`);
-    data.value = response.data.value;
-    error.value = response.error.value;
-    loading.value = false;
+    try {
+      loading.value = true;
+      data.value = await $fetch(`/api/category/${urlPath}`);
+    } catch (e) {
+      if (e instanceof Error) {
+        error.value = e;
+      }
+    } finally {
+      loading.value = false;
+    }
   }
 
   function resetCategory() {
