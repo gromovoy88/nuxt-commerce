@@ -6,23 +6,41 @@ export interface UseAuth {
 }
 
 export function useAuth(): UseAuth {
-  const { onLogin, onLogout } = useApollo();
+  const token = useState<string>(() => '');
   const { resetCustomer } = useCustomer();
-  const { loginCustomer } = useCustomerApi();
+
+  function onLogin(tokenData: string): void {
+    token.value = tokenData;
+  }
+
+  function onLogout(): void {
+    token.value = '';
+  }
 
   async function login(input: LoginUserInput): Promise<void> {
-    const { data, error } = await loginCustomer(input);
+    const { data, error } = await useFetch('/api/account/login', {
+      method: 'POST',
+      body: input
+    });
 
-    if (!data?.token) {
-      throw new Error(error?.message || 'The user cannot log in.');
+    if (!data.value?.token) {
+      throw new Error(error.value?.message || 'The user cannot log in.');
     }
 
-    await onLogin(`Bearer ${data.token}`);
+    onLogin(`Bearer ${data.value.token}`);
   }
 
   async function logout(): Promise<void> {
-    await onLogout();
+    const { data, error } = await useFetch('/api/account/logout', {
+      method: 'POST'
+    });
+
+    if (!data.value) {
+      throw new Error(error.value?.message || 'The user cannot logged out.');
+    }
+
     resetCustomer();
+    onLogout();
   }
 
   return {

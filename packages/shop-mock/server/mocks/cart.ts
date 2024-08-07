@@ -81,7 +81,7 @@ export const mockCart = (): Cart => ({
   isVirtual: faker.datatype.boolean(),
   items: Array.from({ length: 3 }, mockCartItem),
   prices: mockCartPrices(),
-  totalQuantity: 3,
+  totalQuantity: faker.number.int(3),
   billingAddress: mockCartBillingAddress(),
   shippingAddresses: Array.from({ length: 3 }, mockCartShippingAddress),
   selectedPaymentMethod: mockPaymentMethod(),

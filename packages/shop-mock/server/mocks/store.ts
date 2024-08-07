@@ -1,5 +1,6 @@
 import { faker } from '@faker-js/faker';
 import type { StoreConfig } from '@thunder/types';
+import { DEFAULT_SORT_BY } from './const';
 
 export const mockStoreConfig = (): StoreConfig => ({
   defaultDisplayCurrencyCode: faker.finance.currencyCode(),
@@ -12,7 +13,7 @@ export const mockStoreConfig = (): StoreConfig => ({
   storeSortOrder: 0,
   productUrlSuffix: '',
   categoryUrlSuffix: '',
-  catalogDefaultSortBy: 'name',
+  catalogDefaultSortBy: DEFAULT_SORT_BY,
   gridPerPage: 24,
   rootCategoryUid: 'root',
   baseCurrencyCode: faker.finance.currencyCode()

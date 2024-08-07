@@ -1,4 +1,4 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-  extends: ['@thunder/shop-mock', '@thunder/magento']
+  extends: ['@thunder/shop-mock']
 });

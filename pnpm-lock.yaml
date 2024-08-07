@@ -120,9 +120,6 @@ importers:
 
   packages/composables:
     dependencies:
-      '@thunder/magento':
-        specifier: workspace:*
-        version: link:../magento
       '@thunder/shop-mock':
         specifier: workspace:*
         version: link:../shop-mock

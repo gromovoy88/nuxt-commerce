@@ -40,5 +40,5 @@ export const mockMegaMenuItem = (): MegaMenuItem => ({
 // Mock for MegaMenu
 export const mockMegaMenu = (): MegaMenu => ({
   ...mockMegaMenuItem(),
-  children: Array.from({ length: 10 }, mockMegaMenuItem)
+  children: Array.from({ length: 8 }, mockMegaMenuItem)
 });

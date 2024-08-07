@@ -1,0 +1,101 @@
+{
+  "name": "Automotive",
+  "productCount": 5330215838416896,
+  "uid": "f252bc14-5648-4c6f-8435-fd7fc0745398",
+  "includeInMenu": true,
+  "position": 1583271892746240,
+  "level": 1,
+  "urlPath": "vulticulus-stabilis-approbo",
+  "children": [
+    {
+      "name": "Jewelery",
+      "productCount": 6942258200838144,
+      "uid": "5a2a225e-68d1-420f-849a-27213d25d32d",
+      "includeInMenu": false,
+      "position": 2658440667201536,
+      "level": 2,
+      "urlPath": "undique-combibo-cognomen"
+    },
+    {
+      "name": "Computers",
+      "productCount": 551110188204032,
+      "uid": "98db480d-42fd-4919-b236-3e4eb1647481",
+      "includeInMenu": false,
+      "position": 9002620460990464,
+      "level": 1,
+      "urlPath": "cavus-tot-contego"
+    },
+    {
+      "name": "Shoes",
+      "productCount": 3657871413739520,
+      "uid": "5a990eb7-1921-40ee-b56b-7499959d8d85",
+      "includeInMenu": true,
+      "position": 2299889958518784,
+      "level": 2,
+      "urlPath": "chirographum-vilicus-calcar"
+    },
+    {
+      "name": "Industrial",
+      "productCount": 29147751514112,
+      "uid": "e0912acc-66ae-462f-aca6-c32088e4cfc5",
+      "includeInMenu": true,
+      "position": 625649171562496,
+      "level": 3,
+      "urlPath": "admitto-vereor-chirographum"
+    },
+    {
+      "name": "Automotive",
+      "productCount": 7595787320033280,
+      "uid": "e1cfa47d-42a5-4324-a820-3b004e8f4221",
+      "includeInMenu": false,
+      "position": 4304741714624512,
+      "level": 1,
+      "urlPath": "arguo-caelum-viduo"
+    },
+    {
+      "name": "Electronics",
+      "productCount": 7547246530789376,
+      "uid": "e18ad203-4b77-416e-bd72-734a15283e61",
+      "includeInMenu": true,
+      "position": 2363793411670016,
+      "level": 1,
+      "urlPath": "astrum-animadverto-chirographum"
+    },
+    {
+      "name": "Shoes",
+      "productCount": 7981752249221120,
+      "uid": "5c59b467-cda9-4714-8bc2-f21197012eb7",
+      "includeInMenu": false,
+      "position": 6324905370976256,
+      "level": 3,
+      "urlPath": "artificiose-odio-deporto"
+    },
+    {
+      "name": "Industrial",
+      "productCount": 202887315587072,
+      "uid": "ad843041-d4df-4acd-9636-4b1e8add5dd9",
+      "includeInMenu": true,
+      "position": 1450677635121152,
+      "level": 2,
+      "urlPath": "cohaero-quisquam-uxor"
+    },
+    {
+      "name": "Movies",
+      "productCount": 3423938799468544,
+      "uid": "75830e8d-f8db-4092-b64c-3865d4017227",
+      "includeInMenu": true,
+      "position": 3024842959880192,
+      "level": 2,
+      "urlPath": "confero-stipes-abutor"
+    },
+    {
+      "name": "Toys",
+      "productCount": 125135333883904,
+      "uid": "5a0f3406-c76d-40ba-a963-64b304fe54f3",
+      "includeInMenu": true,
+      "position": 604066759573504,
+      "level": 3,
+      "urlPath": "alias-vigilo-sordeo"
+    }
+  ]
+}

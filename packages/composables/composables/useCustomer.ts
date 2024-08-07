@@ -10,8 +10,8 @@ export interface UseCustomer {
 
 export function useCustomer(): UseCustomer {
   const data = useState<Customer | null>('customerData', () => null);
+  const error = useState<Error | null>('customerDataError', () => null);
   const loading = useState<boolean>('customerLoading', () => false);
-  const { fetchCustomer } = useCustomerApi();
 
   function setCustomer(payload: Customer): void {
     data.value = payload;
@@ -22,19 +22,14 @@ export function useCustomer(): UseCustomer {
   }
 
   async function updateCustomer(): Promise<void> {
-    try {
-      loading.value = true;
+    loading.value = true;
+    const response = await useFetch('/api/account/customer', {
+      method: 'POST'
+    });
 
-      const { data, error } = await fetchCustomer();
-
-      if (!data) {
-        throw new Error(error?.message || 'Unable to fetch customer data');
-      }
-
-      setCustomer(data);
-    } finally {
-      loading.value = false;
-    }
+    data.value = response.data.value;
+    error.value = response.error.value;
+    loading.value = false;
   }
 
   return {

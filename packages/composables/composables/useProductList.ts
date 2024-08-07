@@ -1,5 +1,4 @@
-import type { ProductListInput } from '@thunder/magento/types';
-import type { ProductList } from '@thunder/types';
+import type { ProductList, ProductListInput } from '@thunder/types';
 
 export interface UseProductList {
   data: Ref<ProductList | null>;

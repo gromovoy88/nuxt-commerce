@@ -1,10 +1,11 @@
 <script lang="ts" setup>
 type RouteParams = { url: string };
 
-const { fetchProductPage } = useProductApi();
+const { data: product, updateProductPage } = useProductPage();
+
 const params = useRoute().params as RouteParams;
 
-const { data: product } = await fetchProductPage(params.url);
+await updateProductPage(params.url);
 
 useHead({
   title: computed(() => `${product?.name ?? ''}`),

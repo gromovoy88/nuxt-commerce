@@ -1,33 +1,28 @@
 export interface UseCheckoutOrder {
-  data: Ref<string>;
+  data: Ref<string | null>;
+  error: Ref<Error | null>;
   loading: Ref<boolean>;
   placeOrder: () => Promise<void>;
 }
 
 export function useCheckoutOrder(): UseCheckoutOrder {
-  const data = useState<string>('orderNumber', () => '');
+  const data = useState<string | null>('orderNumber', () => null);
+  const error = useState<Error | null>('orderNumberError', () => null);
   const loading = useState<boolean>('orderLoading', () => false);
-  const { getCartId } = useCartToken();
-  const { placeOrder: createOrder } = useCheckoutApi();
 
   async function placeOrder(): Promise<void> {
-    try {
-      loading.value = true;
+    loading.value = true;
 
-      const { data: order, error } = await createOrder(getCartId());
+    const response = await useFetch('/api/checkout/order');
 
-      if (!order) {
-        throw new Error(error?.message || 'Unable to place an order');
-      }
-
-      data.value = order.number;
-    } finally {
-      loading.value = false;
-    }
+    data.value = response.data.value;
+    error.value = response.error.value;
+    loading.value = false;
   }
 
   return {
     data,
+    error,
     loading,
     placeOrder
   };

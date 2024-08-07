@@ -1,3 +1,5 @@
 export * from './common'
-export * from '../../magento/types/api'
+export * from './api'
+export * from './input.types'
+export * from './output.types'
 export * from './models'

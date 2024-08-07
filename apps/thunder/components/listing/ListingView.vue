@@ -4,6 +4,8 @@ const { updateProductList, data, loading } = useProductList();
 async function updateListing() {
   await updateProductList();
 }
+
+await updateListing();
 </script>
 
 <template>

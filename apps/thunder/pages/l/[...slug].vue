@@ -1,7 +1,7 @@
 <script setup lang="ts">
 const route = useRoute();
 const { data, updateCategory } = useCategory();
-const { input, updateProductList } = useProductList();
+const { input } = useProductList();
 
 const urlPath = [...route.params.slug].join('/');
 
@@ -18,8 +18,6 @@ if (data.value?.uid) {
 } else {
   redirectOrNotFound(urlPath);
 }
-
-await updateProductList();
 
 useHead({
   title: computed(() => `${data.value?.name ?? ''}`),

@@ -6,11 +6,11 @@ import type {
   Product,
   ProductList,
   ProductPage,
-  SortField,
-  SortFieldOption
+  SortField
 } from '@thunder/types';
 import { mockImage, mockPageInfo, mockPriceRange } from './common';
 import { mockCategoryItem } from './category';
+import { DEFAULT_SORT_BY, SORT_FIELD_OPTIONS } from './const';
 
 export const mockProduct = (): Product => ({
   type: faker.commerce.productMaterial(),
@@ -38,27 +38,21 @@ export const mockProductPage = (): ProductPage => ({
 export const mockFilterOption = (): FilterOption => ({
   label: faker.lorem.word(),
   value: faker.lorem.word(),
-  count: faker.number.int()
+  count: faker.number.int({ min: 1, max: 5 })
 });
 
 // Mock for Filter
 export const mockFilter = (): Filter => ({
   label: faker.lorem.word(),
   attributeCode: faker.lorem.word(),
-  count: faker.number.int(),
+  count: faker.number.int(3),
   options: Array.from({ length: 3 }, mockFilterOption)
-});
-
-// Mock for SortFieldOption
-export const mockSortFieldOption = (): SortFieldOption => ({
-  label: faker.lorem.word(),
-  value: faker.lorem.word()
 });
 
 // Mock for SortField
 export const mockSortField = (): SortField => ({
-  default: faker.lorem.word(),
-  options: Array.from({ length: 3 }, mockSortFieldOption)
+  default: DEFAULT_SORT_BY,
+  options: SORT_FIELD_OPTIONS
 });
 
 // Mock for ProductList

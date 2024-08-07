@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-const { showMegaMenu } = useMegaMenu();
+const { showMegaMenu, data } = useMegaMenu();
 const localePath = useLocalePath();
 
 const isOpen = useState('isStoreInfoOpen');
@@ -41,14 +41,14 @@ function handleClick() {
     </a>
 
     <NuxtLink
-      v-for="item in items"
-      :key="item.label"
+      v-for="item in data?.children?.slice(0, 3)"
+      :key="item.uid"
       class="hover:cursor-pointer"
-      :to="item.link"
+      :to="item.urlPath"
       @click="handleClick"
     >
       <BaseTypography variant="subtitle">
-        <span>{{ item.label }}</span>
+        <span>{{ item.name }}</span>
       </BaseTypography>
     </NuxtLink>
   </div>
