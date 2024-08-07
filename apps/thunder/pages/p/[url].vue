@@ -42,20 +42,6 @@ useHead({
             <template #price>
               <ProductPagePrice :product="product" />
             </template>
-            <template #options>
-              <ProductConfigurableVariants
-                v-if="product.type === 'ConfigurableProduct'"
-                :sku="product.sku"
-              />
-              <ProductGrouped
-                v-if="product.type === 'GroupedProduct'"
-                :sku="product.sku"
-              />
-              <ProductBundle
-                v-if="product.type === 'BundleProduct'"
-                :sku="product.sku"
-              />
-            </template>
           </ProductPageInfo>
         </ProductPageAddToCartForm>
       </template>

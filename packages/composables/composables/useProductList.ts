@@ -5,7 +5,8 @@ export interface UseProductList {
   error: Ref<Error | null>;
   input: Ref<ProductListInput>;
   loading: Ref<boolean>;
-  updateProductList: (input?: ProductListInput) => Promise<void>;
+  fetchProductList: (input?: ProductListInput) => Promise<ProductList>;
+  updateProductList: () => Promise<void>;
   resetProductListInput: () => void;
 }
 
@@ -21,26 +22,28 @@ export function useProductList(): UseProductList {
   const { getPage } = usePagination();
   const { data: storeConfig } = useStoreConfig();
 
-  async function updateProductList(): Promise<void> {
-    try {
-      loading.value = true;
-      const { pageSize, filters, sort, currentPage = 1, search } = input.value;
-      data.value = await $fetch('/api/products', {
-        query: {
-          sort: { ...getSort(), ...sort },
-          filters: { ...getFilters(), ...filters },
-          currentPage: getPage() || currentPage,
-          pageSize: pageSize || storeConfig.value?.gridPerPage,
-          search: getSearch() || search
-        }
-      });
-    } catch (e) {
-      if (e instanceof Error) {
-        error.value = e;
+  async function fetchProductList(
+    input?: ProductListInput
+  ): Promise<ProductList> {
+    return await $fetch('/api/products', {
+      query: {
+        sort: { ...getSort(), ...input?.sort },
+        filters: { ...getFilters(), ...input?.filters },
+        currentPage: getPage() || input?.currentPage,
+        pageSize: input?.pageSize || storeConfig.value?.gridPerPage,
+        search: getSearch() || input?.search
       }
-    } finally {
-      loading.value = false;
-    }
+    });
+  }
+
+  async function updateProductList(): Promise<void> {
+    loading.value = true;
+    const response = await useAsyncData('product-list', () =>
+      fetchProductList(input.value)
+    );
+    data.value = response.data.value;
+    error.value = response.error.value;
+    loading.value = false;
   }
 
   function resetProductListInput(): void {
@@ -52,6 +55,7 @@ export function useProductList(): UseProductList {
     error,
     input,
     loading,
+    fetchProductList,
     updateProductList,
     resetProductListInput
   };

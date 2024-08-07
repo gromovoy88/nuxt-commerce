@@ -8,7 +8,7 @@ export function useCartToken(): UseCartToken {
   const cartIdCookie = useCookie(cartTokenKey);
 
   function getCartId(): string {
-    return cartIdCookie.value ?? '';
+    return cartIdCookie.value ?? '123';
   }
 
   function setCartId(id: string): void {

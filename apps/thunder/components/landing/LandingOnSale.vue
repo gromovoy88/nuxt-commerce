@@ -1,22 +1,23 @@
 <script lang="ts" setup>
-const { fetchProducts } = useProductApi();
-const { data } = await fetchProducts({
-  pageSize: 4,
-  filters: { sale: { eq: '1' } }
-});
+const { fetchProductList } = useProductList();
 
-const products = data?.items;
+const { data } = await useAsyncData('bestseller-products', () =>
+  fetchProductList({
+    pageSize: 4,
+    filters: { price: { from: '20', to: '30' } }
+  })
+);
 </script>
 
 <template>
-  <div v-if="products?.length" class="flex w-full flex-col space-y-8">
+  <div v-if="data?.items?.length" class="flex w-full flex-col space-y-8">
     <BaseTypography variant="heading">
       <h2>
         {{ $t('messages.shop.onSale') }}
       </h2>
     </BaseTypography>
     <div>
-      <ProductCarousel :products="products" />
+      <ProductCarousel :products="data.items" />
     </div>
   </div>
 </template>

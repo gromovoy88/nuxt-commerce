@@ -21,19 +21,16 @@ export function useCustomer(): UseCustomer {
     data.value = null;
   }
 
+  async function fetchCustomer(): Promise<Customer> {
+    return await $fetch('/api/account/customer');
+  }
+
   async function updateCustomer(): Promise<void> {
-    try {
-      loading.value = true;
-      data.value = await $fetch('/api/account/customer', {
-        method: 'POST'
-      });
-    } catch (e) {
-      if (e instanceof Error) {
-        error.value = e;
-      }
-    } finally {
-      loading.value = false;
-    }
+    loading.value = true;
+    const response = await useAsyncData('customer', () => fetchCustomer());
+    data.value = response.data.value;
+    error.value = response.error.value;
+    loading.value = false;
   }
 
   return {

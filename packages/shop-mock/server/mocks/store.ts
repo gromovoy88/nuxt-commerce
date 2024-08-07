@@ -10,7 +10,7 @@ export const mockStoreConfig = (): StoreConfig => ({
   storeGroupCode: 'default',
   storeGroupName: 'default',
   storeName: 'default',
-  storeSortOrder: 1,
+  storeSortOrder: DEFAULT_SORT_ORDER,
   productUrlSuffix: '',
   categoryUrlSuffix: '',
   catalogDefaultSortBy: DEFAULT_SORT_BY,

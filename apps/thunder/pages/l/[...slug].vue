@@ -6,7 +6,7 @@ const { input } = useProductList();
 
 const urlPath = [...route.params.slug].join('/');
 
-await useAsyncData('cat', () => updateCategory(urlPath));
+await updateCategory(urlPath);
 
 if (data.value?.uid) {
   input.value = {
@@ -20,7 +20,7 @@ if (data.value?.uid) {
   redirectOrNotFound(urlPath);
 }
 
-await useAsyncData('list', () => updateProductList());
+await updateProductList();
 
 useHead({
   title: computed(() => `${data.value?.name ?? ''}`),
