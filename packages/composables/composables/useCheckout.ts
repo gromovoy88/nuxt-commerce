@@ -2,7 +2,8 @@ import type {
   AvailableShippingMethod,
   PaymentMethod,
   ShippingMethod,
-  CartBillingAddress
+  CartBillingAddress,
+  CheckoutAgreement
 } from '@thunder/types';
 
 export interface UseCheckout {
@@ -11,6 +12,7 @@ export interface UseCheckout {
   selectedPaymentMethod: ComputedRef<PaymentMethod | null>;
   availableShippingMethods: ComputedRef<AvailableShippingMethod[]>;
   availablePaymentMethods: ComputedRef<PaymentMethod[]>;
+  fetchAgreements: () => Promise<CheckoutAgreement[]>;
 }
 
 export function useCheckout(): UseCheckout {
@@ -34,11 +36,16 @@ export function useCheckout(): UseCheckout {
     () => cart?.value?.availablePaymentMethods ?? []
   );
 
+  async function fetchAgreements(): Promise<CheckoutAgreement[]> {
+    return await $fetch('/api/checkout/agreements');
+  }
+
   return {
     billingAddress,
     selectedShippingMethod,
     selectedPaymentMethod,
     availableShippingMethods,
-    availablePaymentMethods
+    availablePaymentMethods,
+    fetchAgreements
   };
 }

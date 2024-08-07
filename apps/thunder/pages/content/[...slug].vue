@@ -1,30 +1,35 @@
 <script setup lang="ts">
-const { fetchCmsPage } = useCmsApi();
-const { fetchRoute } = useStoreApi();
 const route = useRoute();
+const { fetchPage } = usePage();
+const { fetchRoute } = useStoreRoute();
+
 const pageId = ref<string | null>(null);
 const url = [...route.params.slug].join('/');
 
-const { data: routeData } = await fetchRoute(url);
+const { data: routeData } = await useAsyncData('store-route', () =>
+  fetchRoute(url)
+);
 
-if (!routeData) {
+if (!routeData.value) {
   redirectOrNotFound(url);
 }
 
-if (routeData?.type === 'Page') {
-  pageId.value = routeData.id;
+if (routeData.value?.type === 'Page') {
+  pageId.value = routeData.value.id;
 }
 
-const { data: page } = await fetchCmsPage(pageId.value ?? '');
+const { data: pageData } = await useAsyncData('store-route', () =>
+  fetchPage(pageId.value ?? '123')
+);
 
 useHead({
-  title: computed(() => `${page?.title}`),
+  title: computed(() => `${pageData.value?.title}`),
   titleTemplate: '%s - Thunder Commerce',
   meta: [
     { name: 'viewport', content: 'width=device-width, initial-scale=1' },
     {
-      hid: computed(() => `${page?.metaDescription}`),
-      name: computed(() => `${page?.metaTitle}`),
+      hid: computed(() => `${pageData.value?.metaDescription}`),
+      name: computed(() => `${pageData.value?.metaTitle}`),
       content: '- Thunder Commerce'
     }
   ],
@@ -33,7 +38,7 @@ useHead({
 </script>
 
 <template>
-  <ContainerOneColumn v-if="page?.content">
-    <div v-html="page.content"></div>
+  <ContainerOneColumn v-if="pageData?.content">
+    <div v-html="pageData.content"></div>
   </ContainerOneColumn>
 </template>

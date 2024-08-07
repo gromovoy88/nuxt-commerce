@@ -6,8 +6,8 @@ export const mockCheckoutAgreement = (): CheckoutAgreement => ({
   agreementId: faker.number.int(),
   checkboxText: faker.lorem.words(),
   content: faker.lorem.paragraphs(),
-  mode: faker.lorem.word(),
-  name: faker.company.companyName()
+  mode: 'MANUAL',
+  name: faker.company.name()
 });
 
 // Mock for CheckoutOrder

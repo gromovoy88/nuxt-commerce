@@ -1,6 +1,8 @@
 <script lang="ts" setup>
-const { fetchAgreements } = useCheckoutApi();
-const { data: agreements } = await fetchAgreements();
+const { fetchAgreements } = useCheckout();
+const { data: agreements } = await useAsyncData('checkout-agreements', () =>
+  fetchAgreements()
+);
 </script>
 
 <template>

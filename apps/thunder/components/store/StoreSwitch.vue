@@ -1,12 +1,8 @@
 <script lang="ts" setup>
-const { fetchAvailableStores } = useStoreApi();
-const { data: storeConfig } = useStoreConfig();
-const storeKey = useRuntimeConfig().public.storeToken;
-const storeCode = useCookie<string>(storeKey);
+const { data: storeConfig, fetchStoresConfig } = useStoreConfig();
+const { setStoreId } = useStoreToken();
 
-const { data } = await fetchAvailableStores();
-
-const availableStores = computed(() => data?.map((store) => store!) ?? []);
+const { data } = await useAsyncData('stores', () => fetchStoresConfig());
 
 function getCurrencySymbol(locale: string, currency: string) {
   return (0)
@@ -25,7 +21,7 @@ function changeCurrency(code: string) {
     return;
   }
 
-  storeCode.value = code;
+  setStoreId(code);
   window.location.reload();
 }
 
@@ -35,13 +31,13 @@ function storeLocaleToIso(storeLocale: string) {
 </script>
 
 <template>
-  <div v-if="storeConfig" class="flex items-center">
+  <div v-if="storeConfig && data?.length" class="flex items-center">
     <span class="w-20 text-sm text-gray-500">{{
       $t('messages.general.currency')
     }}</span>
     <div class="flex flex-wrap gap-4">
       <UButton
-        v-for="store in availableStores"
+        v-for="store in data"
         :key="store.storeCode ?? ''"
         :disabled="store.storeCode === storeConfig.storeCode"
         :variant="store.storeCode === storeConfig.storeCode ? 'solid' : 'ghost'"
