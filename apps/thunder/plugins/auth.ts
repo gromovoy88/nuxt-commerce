@@ -1,9 +1,8 @@
-export default defineNuxtPlugin((nuxtApp): void => {
+export default defineNuxtPlugin((): void => {
   const authToken = useCookie(useRuntimeConfig().public.authToken);
+  const { onLogin } = useAuth();
 
-  nuxtApp.hook('apollo:auth', ({ token }) => {
-    if (authToken.value) {
-      token.value = authToken.value;
-    }
-  });
+  if (authToken.value) {
+    onLogin(authToken.value);
+  }
 });

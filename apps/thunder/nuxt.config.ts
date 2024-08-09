@@ -2,11 +2,10 @@ import thunderConfig from './thunder.config';
 
 export default defineNuxtConfig({
   debug: process.env.NODE_ENV === 'development',
-  extends: ['@thunder/shop-mock', '@thunder/magento', '@thunder/composables'],
+  extends: ['@thunder/shop-mock', '@thunder/composables'],
 
   modules: [
     '@nuxtjs/i18n',
-    '@nuxtjs/apollo',
     '@nuxt/icon',
     '@nuxt/ui',
     '@nuxt/image',
@@ -23,27 +22,6 @@ export default defineNuxtConfig({
       link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }]
     },
     pageTransition: { name: 'page', mode: 'out-in' }
-  },
-
-  apollo: {
-    clients: {
-      default: {
-        httpEndpoint: process.env.API_BASE_URL ?? '',
-        httpLinkOptions: {
-          credentials: 'include',
-          useGETForQueries: true
-        },
-        defaultOptions: {
-          query: {
-            fetchPolicy:
-              process.env.NODE_ENV === 'development'
-                ? 'no-cache'
-                : 'cache-first'
-          }
-        },
-        tokenName: thunderConfig.authToken
-      }
-    }
   },
 
   i18n: {

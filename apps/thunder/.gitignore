@@ -18,6 +18,3 @@ dist
 
 # VSCode
 .vscode/
-
-# Codegen
-/lib/magento/graphql/generated

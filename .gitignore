@@ -8,8 +8,6 @@ build
 !/apps/thunder/**
 !/packages/composables
 !/packages/composables/**
-!/packages/magento
-!/packages/magento/**
 !/packages/types
 !/packages/types/**
 !/packages/shop-mock

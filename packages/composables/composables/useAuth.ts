@@ -3,6 +3,8 @@ import type { LoginUserInput } from '@thunder/types';
 export interface UseAuth {
   login: (input: LoginUserInput) => Promise<void>;
   logout: () => Promise<void>;
+  onLogin: (tokenData: string) => void;
+  onLogout: () => void;
 }
 
 export function useAuth(): UseAuth {
@@ -45,6 +47,8 @@ export function useAuth(): UseAuth {
 
   return {
     login,
-    logout
+    logout,
+    onLogin,
+    onLogout
   };
 }

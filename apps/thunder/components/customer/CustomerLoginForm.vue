@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import type { LoginUserInput } from '@thunder/magento/types';
+import type { LoginUserInput } from '@thunder/types';
 
 const localePath = useLocalePath();
 const { login } = useAuth();

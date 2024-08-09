@@ -22,28 +22,20 @@
     "preview": "nuxi preview",
     "postinstall": "nuxt prepare",
     "lint": "eslint --ext .js,.ts,.vue .",
-    "lintfix": "eslint --fix --ext .js,.ts,.vue .",
-    "codegen": "graphql-codegen --config ./codegen.ts",
-    "codegen:watch": "graphql-codegen --watch"
+    "lintfix": "eslint --fix --ext .js,.ts,.vue ."
   },
   "dependencies": {
-    "@apollo/client": "^3.11.2",
     "@nuxt/ui": "npm:@nuxt/ui-edge@latest",
     "@nuxtjs/robots": "^3.0.0",
     "@thunder/composables": "workspace:*",
-    "@thunder/magento": "workspace:*",
     "@thunder/shop-mock": "workspace:*",
     "@thunder/types": "workspace:*",
     "nuxt-swiper": "^1.2.2"
   },
   "devDependencies": {
-    "@graphql-codegen/cli": "^5.0.2",
-    "@graphql-codegen/client-preset": "^4.3.3",
-    "@graphql-eslint/eslint-plugin": "^3.20.1",
     "@nuxt/eslint-config": "^0.4.0",
     "@nuxt/icon": "^1.4.5",
     "@nuxt/image": "1.7.0",
-    "@nuxtjs/apollo": "5.0.0-alpha.12",
     "@nuxtjs/eslint-config-typescript": "^12.1.0",
     "@nuxtjs/google-fonts": "^3.0.2",
     "@nuxtjs/i18n": "^8.3.3",

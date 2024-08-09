@@ -19,6 +19,3 @@ dist
 
 # VSCode
 .vscode/
-
-#Codegen
-graphql/generated
