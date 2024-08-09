@@ -1,18 +1,17 @@
 <script setup lang="ts">
 const route = useRoute();
-const { data, updateCategory } = useCategory();
-const { updateProductList } = useProductList();
+const { data: categoryData, updateCategory } = useCategory();
 const { input } = useProductList();
 
 const urlPath = [...route.params.slug].join('/');
 
 await updateCategory(urlPath);
 
-if (data.value?.uid) {
+if (categoryData.value?.uid) {
   input.value = {
     filters: {
       category_uid: {
-        eq: data.value.uid
+        eq: categoryData.value.uid
       }
     }
   };
@@ -20,10 +19,18 @@ if (data.value?.uid) {
   redirectOrNotFound(urlPath);
 }
 
-await updateProductList();
+const { fetchProductList } = useProductList();
+
+const { data, status } = await useAsyncData('product-list', () =>
+  fetchProductList({})
+);
+
+async function updateProductList() {
+  data.value = await fetchProductList();
+}
 
 useHead({
-  title: computed(() => `${data.value?.name ?? ''}`),
+  title: computed(() => `${categoryData.value?.name ?? ''}`),
   titleTemplate: '%s - Thunder Commerce',
   meta: [
     {
@@ -45,6 +52,10 @@ useHead({
         <ListingCategoryInfo />
       </div>
     </UContainer>
-    <ListingView />
+    <ListingView
+      :data="data"
+      :loading="status === 'pending'"
+      @update-product-list="updateProductList"
+    />
   </div>
 </template>

@@ -2,10 +2,8 @@ import type { Cart, SetBillingAddressInput } from '@thunder/types';
 
 export interface UseCart {
   data: Ref<Cart | null>;
-  loading: Ref<boolean>;
   fetchCart: (cartId: string) => Promise<Cart>;
-  resetCart: () => void;
-  updateCart: (storeId: string) => Promise<void>;
+  resetCart: () => Promise<void>;
   createEmptyCart: () => Promise<Cart>;
   mergeCarts: (
     sourceCartId: string,
@@ -23,8 +21,6 @@ export interface UseCart {
 
 export function useCart(): UseCart {
   const data = useState<Cart | null>('cart', () => null);
-  const error = useState<Error | null>('cartError', () => null);
-  const loading = useState<boolean>('cartLoading', () => false);
 
   async function createEmptyCart(): Promise<Cart> {
     return await $fetch('/api/cart/create', {
@@ -39,14 +35,6 @@ export function useCart(): UseCart {
         cartId
       }
     });
-  }
-
-  async function updateCart(cartId: string): Promise<void> {
-    loading.value = true;
-    const response = await useAsyncData('cart', () => fetchCart(cartId));
-    data.value = response.data.value;
-    error.value = response.error.value;
-    loading.value = false;
   }
 
   async function resetCart(): Promise<void> {
@@ -133,7 +121,6 @@ export function useCart(): UseCart {
 
   return {
     data,
-    loading,
     fetchCart,
     createEmptyCart,
     mergeCarts,
@@ -142,7 +129,6 @@ export function useCart(): UseCart {
     applyDiscountCode,
     setBillingAddress,
     setPaymentMethod,
-    setShippingMethod,
-    updateCart
+    setShippingMethod
   };
 }

@@ -1,13 +1,15 @@
 <script lang="ts" setup>
 import type { LoginUserInput } from '@thunder/types';
 
+const config = useRuntimeConfig().public;
 const localePath = useLocalePath();
-const { login } = useAuth();
-const { updateCustomer } = useCustomer();
+const { token, login } = useAuth();
+const { data: customer, fetchCustomer } = useCustomer();
 const { showError } = useUiErrorHandler();
 const { setCartId, getCartId } = useCartToken();
 const { data: cart, mergeCarts } = useCart();
 const { fetchCustomerCart } = useCustomer();
+const customerToken = useCookie(config.authToken);
 
 const formData = reactive<LoginUserInput>({
   email: '',
@@ -17,7 +19,8 @@ const isLoading = ref(false);
 
 async function loginUser() {
   await login(formData);
-  await updateCustomer();
+  customer.value = await fetchCustomer();
+  customerToken.value = token.value;
 }
 
 async function mergeUserCart() {

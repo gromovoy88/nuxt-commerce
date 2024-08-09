@@ -1,5 +1,18 @@
 <script lang="ts" setup>
-const { data, loading, updateProductList } = useProductList();
+import type { ProductList } from '@thunder/types';
+
+defineProps<{
+  data: ProductList;
+  loading: boolean;
+}>();
+
+const emit = defineEmits<{
+  (event: 'update-product-list'): void;
+}>();
+
+function updateProductList() {
+  emit('update-product-list');
+}
 </script>
 
 <template>

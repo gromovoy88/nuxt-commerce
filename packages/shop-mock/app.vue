@@ -1,12 +1,7 @@
-<script lang="ts" setup>
-const { data } = await useFetch('/api/category/23');
-</script>
+<script lang="ts" setup></script>
 
 <template>
-  <div>
-    Some data
-    {{ data }}
-  </div>
+  <div>Test shop mock</div>
 </template>
 
 <style>

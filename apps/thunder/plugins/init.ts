@@ -1,7 +1,7 @@
 export default defineNuxtPlugin(async (): Promise<void> => {
   const config = useRuntimeConfig().public;
   const cartToken = useCookie(config.cartToken);
-  const authToken = useCookie(config.authToken);
+  const customerToken = useCookie(config.authToken);
   const storeToken = useCookie(config.storeToken);
   const isReloaded = useCookie(config.reloadedToken);
   const storeConfig = useStoreConfig();
@@ -14,17 +14,29 @@ export default defineNuxtPlugin(async (): Promise<void> => {
       storeToken.value = stores[0].storeCode;
     }
 
-    await storeConfig.updateStoreConfig(storeToken.value);
+    const { data: storeConfigData } = await useAsyncData(
+      'store-config-data',
+      () => storeConfig.fetchStoreConfig(storeToken.value as string)
+    );
+
+    storeConfig.data.value = storeConfigData.value;
 
     if (!cartToken.value) {
       const cartData = await cart.createEmptyCart();
       cartToken.value = cartData.id;
     }
 
-    await cart.updateCart(cartToken.value);
+    const { data: cartData } = await useAsyncData('cart-data', () =>
+      cart.fetchCart(cartToken.value as string)
+    );
 
-    if (authToken.value) {
-      await customer.updateCustomer();
+    cart.data.value = cartData.value;
+
+    if (customerToken.value) {
+      const { data: customerData } = await useAsyncData('customer-data', () =>
+        customer.fetchCustomer()
+      );
+      customer.data.value = customerData.value;
     }
   } catch (error) {
     if (import.meta.client) {

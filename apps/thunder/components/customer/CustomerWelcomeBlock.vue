@@ -1,22 +1,21 @@
 <script lang="ts" setup>
+const config = useRuntimeConfig().public;
 const { data: customer } = useCustomer();
 const { logout } = useAuth();
 const { resetCart } = useCart();
 const localePath = useLocalePath();
+const customerToken = useCookie(config.authToken);
 
 const { showError } = useUiErrorHandler();
 
 async function handleLogout() {
   try {
     await logout();
-
-    setTimeout(async () => {
-      await resetCart();
-
-      navigateTo({
-        path: localePath(paths.home)
-      });
-    }, 0);
+    customerToken.value = '';
+    await resetCart();
+    navigateTo({
+      path: localePath(paths.home)
+    });
   } catch (error) {
     showError(error);
   }

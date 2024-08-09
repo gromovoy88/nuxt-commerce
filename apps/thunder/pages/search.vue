@@ -3,18 +3,12 @@ const { t } = useI18n();
 const { resetQueryFilters } = useFiltering();
 const { data: searchQuery, getSearch } = useSearch();
 const { setPage } = usePagination();
-const { updateProductList, loading, resetProductListInput } = useProductList();
 const { resetCategory } = useCategory();
 const { setBreadcrumbs, data: breadcrumbs } = useBreadcrumbs();
 
-searchQuery.value = getSearch() ?? '';
+const { fetchProductList, resetProductListInput } = useProductList();
 
-async function searchProducts() {
-  await resetQueryFilters();
-  await setPage(1);
-  await updateProductList();
-  updateSearchBreadcrumbs();
-}
+searchQuery.value = getSearch() ?? '';
 
 function updateSearchBreadcrumbs() {
   setBreadcrumbs([
@@ -30,9 +24,22 @@ function updateSearchBreadcrumbs() {
 
 resetCategory();
 resetProductListInput();
-
-await updateProductList();
 updateSearchBreadcrumbs();
+
+const { data, status } = await useAsyncData('search-product-list', () =>
+  fetchProductList()
+);
+
+async function updateProductList() {
+  data.value = await fetchProductList({});
+}
+
+async function searchProducts() {
+  await resetQueryFilters();
+  await setPage(1);
+  await updateProductList();
+  updateSearchBreadcrumbs();
+}
 
 watch(searchQuery, async () => {
   await searchProducts();
@@ -64,9 +71,9 @@ useHead({
         <BaseBreadcrumbs :items="breadcrumbs" />
       </div>
       <div class="mb-6 md:mb-12">
-        <SearchPageInfo :is-updating="loading" />
+        <SearchPageInfo :is-updating="status === 'pending'" />
       </div>
     </UContainer>
-    <ListingView />
+    <ListingView :data="data" :loading="status === 'pending'" />
   </div>
 </template>

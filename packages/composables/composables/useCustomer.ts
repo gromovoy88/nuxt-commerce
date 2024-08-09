@@ -7,10 +7,9 @@ import type {
 
 export interface UseCustomer {
   data: Ref<Customer | null>;
-  loading: Ref<boolean>;
   resetCustomer: () => void;
-  updateCustomer: () => Promise<void>;
   setCustomer: (payload: Customer) => void;
+  fetchCustomer: () => Promise<Customer>;
   fetchCustomerCart: () => Promise<Cart>;
   registerCustomer: (input: RegisterAccountInput) => Promise<Customer>;
   changeCustomerPassword: (
@@ -23,8 +22,6 @@ export interface UseCustomer {
 
 export function useCustomer(): UseCustomer {
   const data = useState<Customer | null>('customerData', () => null);
-  const error = useState<Error | null>('customerDataError', () => null);
-  const loading = useState<boolean>('customerLoading', () => false);
 
   function setCustomer(payload: Customer): void {
     data.value = payload;
@@ -36,14 +33,6 @@ export function useCustomer(): UseCustomer {
 
   async function fetchCustomer(): Promise<Customer> {
     return await $fetch('/api/account/customer');
-  }
-
-  async function updateCustomer(): Promise<void> {
-    loading.value = true;
-    const response = await useAsyncData('customer', () => fetchCustomer());
-    data.value = response.data.value;
-    error.value = response.error.value;
-    loading.value = false;
   }
 
   async function registerCustomer(
@@ -94,11 +83,10 @@ export function useCustomer(): UseCustomer {
 
   return {
     data,
-    loading,
     registerCustomer,
     resetCustomer,
-    updateCustomer,
     setCustomer,
+    fetchCustomer,
     fetchCustomerCart,
     changeCustomerPassword,
     changeCustomerEmail,
