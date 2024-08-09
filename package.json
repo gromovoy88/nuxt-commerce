@@ -9,7 +9,6 @@
   "scripts": {
     "dev": "pnpm --filter thunder dev",
     "build": "pnpm --filter thunder build",
-    "codegen": "pnpm --filter thunder codegen",
     "lint": "pnpm --filter './{apps,packages}/**' lint",
     "prepare": "husky install"
   },
