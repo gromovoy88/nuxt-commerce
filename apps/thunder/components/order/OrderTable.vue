@@ -1,10 +1,9 @@
 <script lang="ts" setup>
-const { fetchOrders } = useCustomerApi();
+const { fetchOrders } = useCustomerOrder();
 
-const { data: orders } = await fetchOrders({
-  pageSize: 16,
-  currentPage: 1
-});
+const { data: orders } = await useAsyncData('customer-orders', () =>
+  fetchOrders()
+);
 </script>
 
 <template>

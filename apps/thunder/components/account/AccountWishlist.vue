@@ -1,7 +1,7 @@
 <script lang="ts" setup>
-const { fetchWishlistProducts } = useWishlistApi();
+const { data, updateWishlist } = useWishlist();
 
-const { data } = await fetchWishlistProducts({ pageSize: 16, currentPage: 1 });
+await updateWishlist({ pageSize: 16, currentPage: 1 });
 </script>
 
 <template>
@@ -13,11 +13,7 @@ const { data } = await fetchWishlistProducts({ pageSize: 16, currentPage: 1 });
         </h1>
       </BaseTypography>
       <div v-if="data">
-        <ul class="flex flex-col">
-          <div v-for="wishlist in data" :key="wishlist.id">
-            <WishlistList :wishlist="wishlist" />
-          </div>
-        </ul>
+        <WishlistList :wishlist="data" />
       </div>
     </BaseCard>
   </div>

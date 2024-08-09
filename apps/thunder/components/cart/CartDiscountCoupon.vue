@@ -1,6 +1,6 @@
 <script setup lang="ts">
-const { applyDiscountCoupon } = useCartApi();
-const { setCart } = useCart();
+const { applyDiscountCode } = useCart();
+const { data: cart } = useCart();
 const { getCartId } = useCartToken();
 
 const couponCode = ref('');
@@ -13,17 +13,14 @@ async function applyCoupon() {
     return;
   }
 
-  const { data, error } = await applyDiscountCoupon(
-    getCartId(),
-    couponCode.value
-  );
+  const data = await applyDiscountCode(getCartId(), couponCode.value);
 
   if (!data) {
-    errorMessage.value = error?.message ?? 'Please enter a valid coupon code.';
+    errorMessage.value = 'Please enter a valid coupon code.';
     return;
   }
 
-  setCart(data);
+  cart.value = data;
   couponCode.value = '';
   errorMessage.value = '';
 }

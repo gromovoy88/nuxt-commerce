@@ -12,17 +12,18 @@ export function useCategory(): UseCategory {
   const error = useState<Error | null>('categoryError', () => null);
   const loading = useState<boolean>('categoryLoading', () => false);
 
+  async function fetchCategory(urlPath: string): Promise<Category | null> {
+    return await $fetch(`/api/category/${urlPath}`);
+  }
+
   async function updateCategory(urlPath: string) {
-    try {
-      loading.value = true;
-      data.value = await $fetch(`/api/category/${urlPath}`);
-    } catch (e) {
-      if (e instanceof Error) {
-        error.value = e;
-      }
-    } finally {
-      loading.value = false;
-    }
+    loading.value = true;
+    const response = await useAsyncData('category-data', () =>
+      fetchCategory(urlPath)
+    );
+    data.value = response.data.value;
+    error.value = response.error.value;
+    loading.value = false;
   }
 
   function resetCategory() {

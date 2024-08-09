@@ -1,10 +1,9 @@
 <script lang="ts" setup>
-import type { RegisterAccountInput } from '@thunder/magento/types';
+import type { RegisterAccountInput } from '@thunder/types';
 
 const { showError } = useUiErrorHandler();
-const { setCustomer } = useCustomer();
+const { data: customer, registerCustomer } = useCustomer();
 const { login } = useAuth();
-const { registerCustomer } = useCustomerApi();
 const localePath = useLocalePath();
 const { t } = useI18n();
 
@@ -26,7 +25,7 @@ async function submitRegister() {
 
   loading.value = true;
 
-  const { data, error } = await registerCustomer({
+  const data = await registerCustomer({
     firstName,
     lastName,
     email,
@@ -34,13 +33,13 @@ async function submitRegister() {
   });
 
   if (!data) {
-    showError(error);
+    showError('Can`t register customer');
     loading.value = false;
     return;
   }
 
   await login({ email, password });
-  setCustomer(data);
+  customer.value = data;
   loading.value = false;
 
   navigateTo({

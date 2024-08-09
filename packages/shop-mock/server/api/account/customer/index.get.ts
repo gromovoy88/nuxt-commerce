@@ -1,6 +1,3 @@
 import { mockCustomer } from '../../../mocks';
 
-export default defineEventHandler((event) => {
-  console.log(event.context.params);
-  return mockCustomer();
-});
+export default defineEventHandler((event) => mockCustomer());

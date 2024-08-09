@@ -28,7 +28,7 @@ export const mockImage = (): Image => ({
 
 // Mock for Region
 export const mockRegion = (): Region => ({
-  code: faker.location.state(true),
+  code: faker.location.state({ abbreviated: true }),
   id: faker.number.int(),
   name: faker.location.state()
 });
@@ -88,11 +88,4 @@ export const mockAddress = (): Address => ({
 export const mockRatingValue = (): RatingValue => ({
   id: faker.string.uuid(),
   value: faker.lorem.word()
-});
-
-// Mock for Rating
-export const mockRating = (): Rating => ({
-  id: faker.string.uuid(),
-  name: faker.commerce.productAdjective(),
-  values: Array.from({ length: 5 }, mockRatingValue)
 });

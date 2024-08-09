@@ -2,8 +2,8 @@
 const { showError } = useUiErrorHandler();
 const { showSuccess } = useUiNotification();
 const { t } = useI18n();
-const { setCustomer } = useCustomer();
-const { changeCustomerPassword } = useCustomerApi();
+const { data: customer } = useCustomer();
+const { changeCustomerPassword } = useCustomer();
 
 const formData = reactive({
   currentPassword: '',
@@ -22,17 +22,14 @@ async function submitPasswordChange() {
     showError(t('messages.account.passwordsNotMatch'));
   }
 
-  const { data, error } = await changeCustomerPassword(
-    currentPassword,
-    newPassword
-  );
+  const data = await changeCustomerPassword(currentPassword, newPassword);
 
   if (!data) {
-    showError(error?.message);
+    showError('Can`t change password');
     return;
   }
 
-  setCustomer(data);
+  customer.value = data;
   showSuccess(t('messages.account.changePasswordSuccess'));
 }
 </script>

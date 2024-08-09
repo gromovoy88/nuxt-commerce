@@ -7,14 +7,18 @@ const props = defineProps<{
 const { showSuccess } = useUiNotification();
 const { t } = useI18n();
 const { showError } = useUiErrorHandler();
-const { addProductToWishlist } = useWishlistApi();
+const { error, addProductToWishlist, updateWishlist } = useWishlist();
 
 async function addToWishlist() {
   if (props.sku && props.name) {
-    const { data, error } = await addProductToWishlist(props.sku);
+    const result = await addProductToWishlist(props.sku);
 
-    if (!data) {
-      showError(error?.message);
+    if (result) {
+      await updateWishlist();
+    }
+
+    if (error.value) {
+      showError(error.value.message);
       return;
     }
 

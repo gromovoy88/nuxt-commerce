@@ -6,9 +6,8 @@ const { login } = useAuth();
 const { updateCustomer } = useCustomer();
 const { showError } = useUiErrorHandler();
 const { setCartId, getCartId } = useCartToken();
-const { setCart } = useCart();
-const { fetchCustomerCartId } = useCustomerApi();
-const { mergeCarts } = useCartApi();
+const { data: cart, mergeCarts } = useCart();
+const { fetchCustomerCart } = useCustomer();
 
 const formData = reactive<LoginUserInput>({
   email: '',
@@ -23,24 +22,15 @@ async function loginUser() {
 
 async function mergeUserCart() {
   try {
-    const { data: customerCartId, error: cartIdError } =
-      await fetchCustomerCartId();
-
-    if (!customerCartId) {
-      throw new Error(cartIdError?.message);
-    }
-
-    const { data, error: mergeCartError } = await mergeCarts(
-      getCartId(),
-      customerCartId.id
-    );
+    const customerCart = await fetchCustomerCart();
+    const data = await mergeCarts(getCartId(), customerCart.id);
 
     if (!data) {
-      throw new Error(mergeCartError?.message);
+      showError('Can`t merge carts');
     }
 
-    setCartId(customerCartId.id);
-    setCart(data);
+    cart.value = data;
+    setCartId(cart.value.id);
   } catch (error) {
     showError(error);
   }

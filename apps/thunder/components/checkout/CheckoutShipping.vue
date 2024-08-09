@@ -2,8 +2,7 @@
 import type { AvailableShippingMethod } from '@thunder/types';
 
 const { showError } = useUiErrorHandler();
-const { setCart } = useCart();
-const { setShippingMethod } = useCartApi();
+const { data: cart, setShippingMethod } = useCart();
 const { availableShippingMethods, selectedShippingMethod } = useCheckout();
 const { getCartId } = useCartToken();
 
@@ -23,18 +22,17 @@ async function selectShippingMethod(
     return;
   }
 
-  const { data, error } = await setShippingMethod(
+  const data = await setShippingMethod(
     getCartId(),
-    item.carrierCode,
-    item.methodCode
+    `${item.carrierCode}_${item.methodCode}`
   );
 
   if (!data) {
-    showError(error?.message || 'Unable to set the shipping method');
+    showError('Unable to set the shipping method');
     return;
   }
 
-  setCart(data);
+  cart.value = data;
   emit('set-shipping-method');
 }
 </script>

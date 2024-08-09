@@ -1,5 +1,17 @@
 import { faker } from '@faker-js/faker';
-import type { Review } from '@thunder/types';
+import type { Rating, Review } from '@thunder/types';
+
+export const mockRating: Rating = {
+  id: faker.hacker.adjective(),
+  name: 'Customer Satisfaction',
+  values: [
+    { id: 'value1', value: 'Excellent' },
+    { id: 'value2', value: 'Good' },
+    { id: 'value3', value: 'Average' },
+    { id: 'value4', value: 'Poor' },
+    { id: 'value5', value: 'Terrible' }
+  ]
+};
 
 // Mock for Review
 export const mockReview = (): Review => ({

@@ -1,6 +1,6 @@
 <script lang="ts" setup>
-const { setPaymentMethod } = useCartApi();
-const { data: cart, setCart } = useCart();
+const { setPaymentMethod } = useCart();
+const { data: cart } = useCart();
 const { availablePaymentMethods } = useCheckout();
 const { getCartId } = useCartToken();
 const { showError } = useUiErrorHandler();
@@ -16,14 +16,14 @@ function isPaymentMethodActive(code?: string): boolean {
 }
 
 async function selectPaymentMethod(code: string) {
-  const { data, error } = await setPaymentMethod(getCartId(), code);
+  const data = await setPaymentMethod(getCartId(), code);
 
   if (!data) {
-    showError(error?.message);
+    showError('Can`t select payment method');
     return;
   }
 
-  setCart(data);
+  cart.value = data;
   emit('set-payment-method');
 }
 </script>

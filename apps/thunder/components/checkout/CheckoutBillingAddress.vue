@@ -1,8 +1,8 @@
 <script lang="ts" setup>
 import type { Address } from '@thunder/types';
 
-const { setCart } = useCart();
-const { setBillingAddress } = useCartApi();
+const { data: cart } = useCart();
+const { setBillingAddress } = useCart();
 const { billingAddress } = useCheckout();
 const { getCartId } = useCartToken();
 const { showError } = useUiErrorHandler();
@@ -15,9 +15,8 @@ const emit = defineEmits<{ 'set-billing-address': [] }>();
 
 async function updateBillingAddress(address: Address) {
   loading.value = true;
-  const { data, error } = await setBillingAddress({
-    cartId: getCartId(),
-    billingAddress: {
+  const data = await setBillingAddress(getCartId(), {
+    address: {
       firstname: address.firstName,
       lastname: address.lastName,
       street: [...address.street],
@@ -31,11 +30,11 @@ async function updateBillingAddress(address: Address) {
   });
 
   if (!data) {
-    showError(error?.message);
+    showError('Can`t update billing address');
     return;
   }
 
-  setCart(data);
+  cart.value = data;
   emit('set-billing-address');
   editAddress.value = false;
   loading.value = false;

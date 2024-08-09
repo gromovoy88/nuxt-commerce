@@ -5,7 +5,7 @@ const { product } = defineProps<{
   product: Product;
 }>();
 
-const { addProductToWishlist } = useWishlistApi();
+const { addProductToWishlist } = useWishlist();
 const localePath = useLocalePath();
 const { t } = useI18n();
 const { addItemAndUpdateCart } = useCartItem();
@@ -34,10 +34,13 @@ async function addToCart({ sku, quantity }: { sku: string; quantity: number }) {
 async function addToWishlist({ sku }: { sku: string }) {
   try {
     if (sku) {
-      await addProductToWishlist(sku);
-      showSuccess(
-        t('messages.wishlist.successAdded').replace('%1', product.name ?? '')
-      );
+      const response = await addProductToWishlist(sku);
+
+      if (response) {
+        showSuccess(
+          t('messages.wishlist.successAdded').replace('%1', product.name ?? '')
+        );
+      }
     }
   } catch (error) {
     showError(error);

@@ -4,9 +4,11 @@ const props = defineProps<{
   productName: string;
 }>();
 
-const { fetchReviews } = useReviewApi();
+const { fetchReviews } = useReview();
 
-const { data } = await fetchReviews(props.productSku);
+const { data } = await useAsyncData('reviews-data', () =>
+  fetchReviews(props.productSku)
+);
 </script>
 
 <template>

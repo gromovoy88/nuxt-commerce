@@ -5,16 +5,16 @@ const { wishlist } = defineProps<{
   wishlist: Wishlist;
 }>();
 
-const { removeProductFromWishlist } = useWishlistApi();
+const { removeProductFromWishlist } = useWishlist();
 const wishlistData = ref(wishlist);
 
 const wishlistItems = computed(() => wishlist.items);
 
 async function removeItemFromWishlist(itemId: string) {
-  const { data } = await removeProductFromWishlist(itemId);
+  const wishlist = await removeProductFromWishlist(itemId);
 
-  if (data) {
-    wishlistData.value = data;
+  if (wishlist) {
+    wishlistData.value = wishlist;
   }
 }
 </script>

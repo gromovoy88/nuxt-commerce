@@ -2,8 +2,8 @@
 const { showError } = useUiErrorHandler();
 const { showSuccess } = useUiNotification();
 const { t } = useI18n();
-const { data: customer, setCustomer } = useCustomer();
-const { updateCustomer } = useCustomerApi();
+const { data: customer } = useCustomer();
+const { changeCustomerData } = useCustomer();
 
 const formData = reactive({
   firstName: customer.value?.firstName ?? '',
@@ -12,14 +12,14 @@ const formData = reactive({
 
 async function submitEditCustomer() {
   const { firstName, lastName } = formData;
-  const { data, error } = await updateCustomer({ firstName, lastName });
+  const data = await changeCustomerData({ firstName, lastName });
 
   if (!data) {
-    showError(error?.message);
+    showError('Can`t update customer data');
     return;
   }
 
-  setCustomer(data);
+  customer.value = data;
   showSuccess(t('messages.account.accountDataSuccess'));
 }
 </script>

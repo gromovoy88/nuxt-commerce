@@ -22,17 +22,21 @@ export function useProductList(): UseProductList {
   const { getPage } = usePagination();
   const { data: storeConfig } = useStoreConfig();
 
+  function getProductQuery(input?: ProductListInput): ProductListInput {
+    return {
+      sort: { ...getSort(), ...input?.sort },
+      filters: { ...getFilters(), ...input?.filters },
+      currentPage: getPage() || input?.currentPage,
+      pageSize: input?.pageSize || storeConfig.value?.gridPerPage,
+      search: getSearch() || input?.search
+    };
+  }
+
   async function fetchProductList(
     input?: ProductListInput
   ): Promise<ProductList> {
     return await $fetch('/api/products', {
-      query: {
-        sort: { ...getSort(), ...input?.sort },
-        filters: { ...getFilters(), ...input?.filters },
-        currentPage: getPage() || input?.currentPage,
-        pageSize: input?.pageSize || storeConfig.value?.gridPerPage,
-        search: getSearch() || input?.search
-      }
+      query: getProductQuery(input)
     });
   }
 

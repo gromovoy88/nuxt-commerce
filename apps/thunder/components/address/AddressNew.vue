@@ -1,8 +1,7 @@
 <script lang="ts" setup>
-import { CountryCodeEnum } from '@thunder/magento/graphql/generated/graphql';
 import type { Address } from '@thunder/types';
 
-const { addCustomerAddress } = useCustomerApi();
+const { addCustomerAddress } = useCustomerAddress();
 
 const localePath = useLocalePath();
 const { t } = useI18n();
@@ -28,25 +27,21 @@ function updateAddress(address: Address) {
 
 async function saveAddress() {
   const address = addressInput.value;
-  const { data, error } = await addCustomerAddress({
-    address: {
-      firstname: address.firstName,
-      lastname: address.lastName,
-      street: address.street,
-      city: address.city,
-      country_code: address.country as CountryCodeEnum,
-      region: {
-        region_id: parseInt(address.region)
-      },
-      telephone: address.telephone,
-      postcode: address.postcode,
-      default_billing: saveAsBilling.value,
-      default_shipping: saveAsShipping.value
-    }
+  const data = await addCustomerAddress({
+    firstname: address.firstName,
+    lastname: address.lastName,
+    street: address.street,
+    city: address.city,
+    countryCode: address.country,
+    regionId: parseInt(address.region),
+    telephone: address.telephone,
+    postcode: address.postcode,
+    defaultBilling: saveAsBilling.value,
+    defaultShipping: saveAsShipping.value
   });
 
   if (!data) {
-    showError(error?.message);
+    showError('Can`t create new address');
     return;
   }
 

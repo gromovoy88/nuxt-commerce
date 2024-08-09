@@ -4,16 +4,16 @@ const { productName, productSku } = defineProps<{
   productSku: string;
 }>();
 
-const { addReview, fetchReviewMetadata } = useReviewApi();
+const { addReview, fetchReviewRating } = useReview();
 const isOpen = ref(false);
 const isSuccess = ref(false);
 const error = ref('');
 
-const { data } = await fetchReviewMetadata();
+const { data } = await useAsyncData('review-rating', () => fetchReviewRating());
 
-const ratings = ref(data ?? []);
+const ratings = ref(data.value ?? []);
 const ratingsData = ref(
-  ratings.value.map((rating) => ({ id: rating.id, valueId: '' }))
+  data.value?.map((rating) => ({ id: rating.id, valueId: '' })) ?? []
 );
 
 const reviewFormData = reactive({
@@ -23,20 +23,19 @@ const reviewFormData = reactive({
 });
 
 async function submitReviewForm() {
-  const { data: review, error: reviewError } = await addReview({
+  const response = await addReview(productSku, {
     ...reviewFormData,
-    sku: productSku,
     ratings: ratingsData.value.map((rating) => ({
       ratingId: rating.id,
       ratingValueId: rating.valueId
     }))
   });
 
-  if (!review) {
-    error.value = reviewError?.message ?? 'Can`t add a review';
+  if (!response) {
+    error.value = 'Can`t add a review';
   }
 
-  isSuccess.value = !!review;
+  isSuccess.value = true;
 }
 
 function resetReviewForm() {
@@ -91,7 +90,7 @@ function updateRatingsData({ id, value }: { id: string; value: string }) {
           />
           <ProductReviewRatingInput
             v-for="rating in ratings"
-            :key="rating.id"
+            :key="rating"
             :rating="rating"
             :size="'24px'"
             class="mb-4"

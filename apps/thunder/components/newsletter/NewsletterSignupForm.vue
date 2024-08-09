@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 const { t } = useI18n();
-const { subscribeGuestToNewsletter } = useNewsletterApi();
+const { subscribeGuestToNewsletter } = useNewsletter();
 
 const email = ref('');
 const validationErrorMessage = ref('');
@@ -21,11 +21,10 @@ function validateEmail() {
 
 async function subscribe() {
   if (validateEmail()) {
-    const { data, error } = await subscribeGuestToNewsletter(email.value);
+    const data = await subscribeGuestToNewsletter(email.value);
 
-    if (!data?.status) {
-      validationErrorMessage.value =
-        error?.message ?? t('messages.newsletter.errorMessage');
+    if (!data) {
+      validationErrorMessage.value = t('messages.newsletter.errorMessage');
       return;
     }
 

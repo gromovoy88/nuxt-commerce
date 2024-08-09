@@ -8,6 +8,26 @@ export type LoginUserInput = {
   password: string;
 };
 
+export type CartAddressInput = {
+  city: string;
+  company?: string;
+  country_code: string;
+  firstname: string;
+  lastname: string;
+  postcode?: string;
+  region?: string;
+  region_id?: number;
+  saveInAddressBook?: boolean;
+  street: (string | undefined)[];
+  telephone?: string;
+  vatId?: string;
+};
+
+export type SetBillingAddressInput = {
+  useForShipping: boolean;
+  address: CartAddressInput;
+}
+
 export type UpdateUserInput = {
   firstName: string;
   lastName: string;
@@ -52,7 +72,6 @@ export type AddReviewInput = {
   summary: string;
   text: string;
   ratings: { ratingId: string; ratingValueId: string }[];
-  sku: string;
 };
 
 export type CartItemInput = {
@@ -60,4 +79,23 @@ export type CartItemInput = {
   parentSku?: string;
   quantity: number;
   sku: string;
+};
+
+export type CustomerAddressInput = {
+  city?: string;
+  company?: string;
+  countryCode?: string;
+  customAttributes?: Record<string, any>; // Deprecated: Custom attributes should not be put into container
+  defaultBilling?: boolean;
+  defaultShipping?: boolean;
+  fax?: string;
+  firstname?: string;
+  lastname?: string;
+  postcode?: string;
+  prefix?: string;
+  regionId?: number;
+  street?: Array<string | undefined>;
+  suffix?: string;
+  telephone?: string;
+  vatId?: string;
 };

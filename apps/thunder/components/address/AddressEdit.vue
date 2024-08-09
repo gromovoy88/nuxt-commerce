@@ -1,19 +1,20 @@
 <script lang="ts" setup>
-import { CountryCodeEnum } from '@thunder/magento/graphql/generated/graphql';
 import type { Address } from '@thunder/types';
 
 const route = useRoute();
 const { t } = useI18n();
 const { showSuccess } = useUiNotification();
 const { showError } = useUiErrorHandler();
-const { fetchCustomerAddresses, updateCustomerAddress } = useCustomerApi();
+const { fetchCustomerAddresses, updateCustomerAddress } = useCustomerAddress();
 const localePath = useLocalePath();
 const addressId = parseInt(`${route.params.id}`);
 
-const { data: addresses } = await fetchCustomerAddresses();
+const { data: addresses } = await useAsyncData('customer-addresses', () =>
+  fetchCustomerAddresses()
+);
 
 const currentAddress =
-  addresses?.find((address) => address.id === addressId) ?? null;
+  addresses.value?.find((address) => address.id === addressId) ?? null;
 
 const addressInput = ref<Address>({
   firstName: currentAddress?.firstName ?? '',
@@ -38,26 +39,21 @@ function updateAddress(address: Address) {
 
 async function saveAddress() {
   const address = addressInput.value;
-  const { data, error } = await updateCustomerAddress({
-    id: addressId,
-    address: {
-      firstname: address.firstName,
-      lastname: address.lastName,
-      street: [...address.street],
-      city: address.city,
-      country_code: address.country as CountryCodeEnum,
-      region: {
-        region_id: parseInt(address.region)
-      },
-      telephone: address.telephone,
-      postcode: address.postcode,
-      default_billing: saveAsBilling.value,
-      default_shipping: saveAsShipping.value
-    }
+  const data = await updateCustomerAddress(addressId, {
+    firstname: address.firstName,
+    lastname: address.lastName,
+    street: [...address.street],
+    city: address.city,
+    countryCode: address.country,
+    regionId: parseInt(address.region),
+    telephone: address.telephone,
+    postcode: address.postcode,
+    defaultBilling: saveAsBilling.value,
+    defaultShipping: saveAsShipping.value
   });
 
-  if (!data?.id) {
-    showError(error?.message);
+  if (!data) {
+    showError('Can`t save address');
     return;
   }
 
